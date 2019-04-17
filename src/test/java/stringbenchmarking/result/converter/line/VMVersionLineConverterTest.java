@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import stringbenchmarking.result.beans.VirtualMachine;
 
-public class JMVersionLineConverterTest {
+public class VMVersionLineConverterTest {
 
 	private VMVersionLineConverter converter = new VMVersionLineConverter();
 
