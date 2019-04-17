@@ -3,7 +3,6 @@ package stringbenchmarking.result.converter.line;
 import java.util.regex.Matcher;
 
 import stringbenchmarking.commons.CommonsMatcher;
-import stringbenchmarking.result.beans.WarmUp;
 
 public final class TimeoutLineConverter
 	implements
