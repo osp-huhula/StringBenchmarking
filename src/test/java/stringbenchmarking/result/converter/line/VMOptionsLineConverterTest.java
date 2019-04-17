@@ -9,8 +9,7 @@ public class VMOptionsLineConverterTest {
 
 	@Test
 	public void converter() {
-		String result
-			= converter.converter("# VM options: <none>");
+		String result = converter.converter("# VM options: <none>");
 		Assert.assertEquals("<none>", result);
 	}
 }

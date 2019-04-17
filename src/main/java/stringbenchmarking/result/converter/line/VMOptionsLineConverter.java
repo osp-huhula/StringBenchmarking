@@ -17,6 +17,6 @@ public final class VMOptionsLineConverter
 	}
 
 	private String regex() {
-		return "# VM options: ([.]*)";
+		return "# VM options: (.+)";
 	}
 }

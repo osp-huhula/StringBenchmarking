@@ -18,6 +18,6 @@ public final class VMInvokerLineConverter
 	}
 
 	private String regex() {
-		return "# VM invoker: ([.]*)";
+		return "# VM invoker: (.+)";
 	}
 }

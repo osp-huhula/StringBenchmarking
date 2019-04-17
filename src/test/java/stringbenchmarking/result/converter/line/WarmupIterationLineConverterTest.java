@@ -11,8 +11,8 @@ public class WarmupIterationLineConverterTest {
 
 	@Test
 	public void converter() {
-		WarmupIteration result = converter.converter("# Warmup Iteration   1: 4550,198 ns/op");
+		WarmupIteration result = converter.converter("# Warmup Iteration   1: 44363,871 ns/op");
 		Assert.assertEquals(Integer.valueOf("1"), result.getIndex());
-		Assert.assertEquals(Double.valueOf("4550.198"), result.getResult());
+		Assert.assertEquals(Double.valueOf("44363.871"), result.getResult());
 	}
 }
