@@ -17,6 +17,6 @@ public final class JMHVersionLineConverter
 	}
 
 	private String regex() {
-		return "# JMH ([1-9]{1}\\.[1-9][1-9]) \\(released ([1-9]+) days ago, please consider updating!\\)";
+		return "# JMH ([1-9]+\\.[0-9]+) \\(released ([1-9]+) days ago, please consider updating!\\)";
 	}
 }

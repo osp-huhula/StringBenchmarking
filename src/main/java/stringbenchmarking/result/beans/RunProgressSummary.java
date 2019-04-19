@@ -2,15 +2,15 @@ package stringbenchmarking.result.beans;
 
 public class RunProgressSummary {
 
-	private String peComplete;
+	private Double peComplete;
 	private String eta;
 
-	public String getPeComplete() {
+	public Double getPeComplete() {
 		return peComplete;
 	}
 
 	public void setPeComplete(
-		String peComplete) {
+		Double peComplete) {
 		this.peComplete = peComplete;
 	}
 

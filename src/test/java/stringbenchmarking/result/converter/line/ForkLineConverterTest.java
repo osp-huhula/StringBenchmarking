@@ -7,7 +7,7 @@ import stringbenchmarking.result.beans.Fork;
 
 public class ForkLineConverterTest {
 
-	private ForkVersionLineConverter converter = new ForkVersionLineConverter();
+	private ForkLineConverter converter = new ForkLineConverter();
 
 	@Test
 	public void converter() {

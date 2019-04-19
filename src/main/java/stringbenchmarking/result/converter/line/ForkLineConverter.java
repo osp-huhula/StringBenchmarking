@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import stringbenchmarking.commons.CommonsMatcher;
 import stringbenchmarking.result.beans.Fork;
 
-public final class ForkVersionLineConverter
+public final class ForkLineConverter
 	implements
 	JMHResultLineConverter<Fork> {
 

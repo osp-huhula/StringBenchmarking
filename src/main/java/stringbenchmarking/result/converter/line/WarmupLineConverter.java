@@ -3,18 +3,18 @@ package stringbenchmarking.result.converter.line;
 import java.util.regex.Matcher;
 
 import stringbenchmarking.commons.CommonsMatcher;
-import stringbenchmarking.result.beans.WarmUp;
+import stringbenchmarking.result.beans.Warmup;
 
 public final class WarmupLineConverter
 	implements
-	JMHResultLineConverter<WarmUp> {
+	JMHResultLineConverter<Warmup> {
 
 	@Override
-	public WarmUp converter(
+	public Warmup converter(
 		String content) {
 		String regex = regex();
 		Matcher matcher = CommonsMatcher.matcher(regex, content);
-		WarmUp result = new WarmUp();
+		Warmup result = new Warmup();
 		result.setIterations(Integer.valueOf(matcher.group(1)));
 		result.setSeconds(Integer.valueOf(matcher.group(2)));
 		return result;

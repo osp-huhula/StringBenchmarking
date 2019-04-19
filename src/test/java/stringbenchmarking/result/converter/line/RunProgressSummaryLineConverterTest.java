@@ -12,7 +12,7 @@ public class RunProgressSummaryLineConverterTest {
 	@Test
 	public void converter() {
 		RunProgressSummary result = converter.converter("# Run progress: 0,00% complete, ETA 00:00:24");
-		Assert.assertEquals("0,00", result.getPeComplete());
+		Assert.assertEquals(Double.valueOf("0.00"), result.getPeComplete());
 		Assert.assertEquals("00:00:24", result.getEta());
 	}
 }
