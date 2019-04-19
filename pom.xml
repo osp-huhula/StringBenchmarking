@@ -92,9 +92,9 @@
 			<version>2.5</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-lang3</artifactId>
-		    <version>3.5</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -138,6 +138,7 @@
 										<goals>
 											<goal>display-info</goal>
 										</goals>
+										<versionRange>1.0</versionRange>
 									</pluginExecutionFilter>
 									<action>
 										<ignore></ignore>
