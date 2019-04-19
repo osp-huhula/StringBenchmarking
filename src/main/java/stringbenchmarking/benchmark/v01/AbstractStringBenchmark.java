@@ -1,27 +1,12 @@
-package stringbenchmarking;
-
-import java.util.concurrent.TimeUnit;
+package stringbenchmarking.benchmark.v01;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
-import org.openjdk.jmh.annotations.Fork;
-import org.openjdk.jmh.annotations.Measurement;
-import org.openjdk.jmh.annotations.OutputTimeUnit;
-import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.State;
-import org.openjdk.jmh.annotations.Warmup;
 
-import stringbenchmarking.StringBenchmarkState.StringCancatenate;
+import stringbenchmarking.benchmark.StringBenchmark;
+import stringbenchmarking.benchmark.v01.StringBenchmarkState.StringCancatenate;
 
-@State(Scope.Thread)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
-@Fork(
-	value = StringBenchmarkState.FORK)
-@Warmup(
-	iterations = StringBenchmarkState.WARMUP)
-@Measurement(
-	iterations = StringBenchmarkState.MEASUREMENT)
-public abstract class AbstractStringBenchmark {
+public abstract class AbstractStringBenchmark extends StringBenchmark {
 
 	private final StringBenchmarkState.StringCancatenate type;
 

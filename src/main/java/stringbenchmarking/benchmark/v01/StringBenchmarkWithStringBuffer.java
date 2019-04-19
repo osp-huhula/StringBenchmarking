@@ -1,4 +1,4 @@
-package stringbenchmarking;
+package stringbenchmarking.benchmark.v01;
 
 public class StringBenchmarkWithStringBuffer
 	extends
