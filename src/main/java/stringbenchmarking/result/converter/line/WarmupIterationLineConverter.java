@@ -21,6 +21,6 @@ public final class WarmupIterationLineConverter
 	}
 
 	private String regex() {
-		return "# Warmup Iteration[ |\\t]+([0-9]+):[ |\\t]+([0-9]+[,|\\.][0-9]+)[ |\\t]+ops/ns";
+		return "# Warmup Iteration[ |\\t]+([0-9]+):[ |\\t]+([0-9]+[,|\\.][0-9]+)[ |\\t]+((ops/ns)|(ns/op))";
 	}
 }

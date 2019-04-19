@@ -21,6 +21,6 @@ public final class IterationLineConverter
 	}
 
 	private String regex() {
-		return "Iteration[ ]+([0-9]+): ([0-9]+[,|\\.][0-9]+) ops/ns";
+		return "Iteration[ ]+([0-9]+): ([0-9]+[,|\\.][0-9]+) ((ops/ns)|(ns/op))";
 	}
 }

@@ -4,6 +4,7 @@ import stringbenchmarking.commons.exception.JMHRuntimeException;
 
 public enum BenchmarkModeEnum {
 		THROUGHPUT("Throughput"),
+		AVERAGE_TIME("Average time"),
 		;
 
 	private final String value;
