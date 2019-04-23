@@ -13,4 +13,11 @@ public class JMHVersionLineConverterTest {
 			= converter.converter("# JMH 1.16 (released 887 days ago, please consider updating!)");
 		Assert.assertEquals(Double.valueOf("1.16"), result);
 	}
+
+	@Test
+	public void converterA() {
+		Double result
+			= converter.converter("# JMH 1.16 (released 890 days ago, please consider updating!)");
+		Assert.assertEquals(Double.valueOf("1.16"), result);
+	}
 }

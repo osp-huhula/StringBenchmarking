@@ -42,10 +42,4 @@ public class ResultAverage {
 		String unit) {
 		this.unit = unit;
 	}
-
-	public void setAverage(
-		ResultAverage converter) {
-		// TODO Auto-generated method stub
-		
-	}
 }
