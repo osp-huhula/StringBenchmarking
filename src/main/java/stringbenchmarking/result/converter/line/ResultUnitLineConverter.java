@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 
 import stringbenchmarking.commons.CommonsMatcher;
 
-public final class VMOptionsLineConverter
+public final class ResultUnitLineConverter
 	implements
 	JMHResultLineConverter<String> {
 
@@ -17,6 +17,6 @@ public final class VMOptionsLineConverter
 	}
 
 	private String regex() {
-		return "# VM options: (.+)";
+		return "  ([0-9]+[\\\\.|,][0-9]+) ns/op";
 	}
 }

@@ -3,7 +3,7 @@ package stringbenchmarking.result.converter.line;
 import org.junit.Assert;
 import org.junit.Test;
 
-import stringbenchmarking.result.beans.Iteration;
+import stringbenchmarking.result.beans.IterationMeasure;
 
 public class IterationLineConverterTest {
 
@@ -11,8 +11,18 @@ public class IterationLineConverterTest {
 
 	@Test
 	public void converter() {
-		Iteration result = converter.converter("Iteration   1: 4550,198 ns/op");
+		IterationMeasure result = converter.converter("Iteration   1: 0,350 ops/ns");
 		Assert.assertEquals(Integer.valueOf("1"), result.getIndex());
-		Assert.assertEquals(Double.valueOf("4550.198"), result.getResult());
+		Assert.assertEquals("0,350", result.getResult());
+		Assert.assertEquals(Double.valueOf("0.350"), result.getResultAsDouble());
+	}
+	
+
+	@Test
+	public void converterAveragetime() {
+		IterationMeasure result = converter.converter("Iteration   1: 3,574 ns/op");
+		Assert.assertEquals(Integer.valueOf("1"), result.getIndex());
+		Assert.assertEquals("2,647", result.getResult());
+		Assert.assertEquals(Double.valueOf("2.647"), result.getResultAsDouble(), 0);
 	}
 }

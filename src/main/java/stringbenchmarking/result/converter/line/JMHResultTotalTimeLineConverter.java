@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 
 import stringbenchmarking.commons.CommonsMatcher;
 
-public final class VMOptionsLineConverter
+public final class JMHResultTotalTimeLineConverter
 	implements
 	JMHResultLineConverter<String> {
 
@@ -17,6 +17,6 @@ public final class VMOptionsLineConverter
 	}
 
 	private String regex() {
-		return "# VM options: (.+)";
+		return "# Run complete\\. Total time: ([0-9]{2}:[0-9]{2}:[0-9]{2})";
 	}
 }

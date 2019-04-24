@@ -1,9 +1,11 @@
 package stringbenchmarking.result.beans;
 
-public class WarmupIteration {
+import stringbenchmarking.commons.DoubleConverter;
+
+public class WarmupMeasure {
 
 	private Integer index;
-	private Double result;
+	private String result;
 
 	public Integer getIndex() {
 		return index;
@@ -14,12 +16,16 @@ public class WarmupIteration {
 		this.index = index;
 	}
 
-	public Double getResult() {
+	public String getResult() {
 		return result;
 	}
 
 	public void setResult(
-		Double result) {
+		String result) {
 		this.result = result;
+	}
+	
+	public Double getResultAsDouble() {
+		return DoubleConverter.toDouble(result);
 	}
 }

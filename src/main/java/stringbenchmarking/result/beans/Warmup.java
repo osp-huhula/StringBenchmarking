@@ -1,9 +1,9 @@
 package stringbenchmarking.result.beans;
 
-public class WarmUp {
+public class Warmup {
 
 	private Integer iterations;
-	private Integer seconds;
+	private String unit;
 
 	public Integer getIterations() {
 		return iterations;
@@ -14,12 +14,12 @@ public class WarmUp {
 		this.iterations = nrIterations;
 	}
 
-	public Integer getSeconds() {
-		return seconds;
+	public String getUnit() {
+		return unit;
 	}
 
-	public void setSeconds(
-		Integer seconds) {
-		this.seconds = seconds;
+	public void setUnit(
+		String unit) {
+		this.unit = unit;
 	}
 }

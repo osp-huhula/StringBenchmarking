@@ -92,6 +92,11 @@
 			<version>2.5</version>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
@@ -113,6 +118,34 @@
 						<downloadJavadocs>true</downloadJavadocs>
 						<!-- Avoid type mvn eclipse:eclipse -Dwtpversion=2.0 -->
 						<wtpversion>2.0</wtpversion>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-enforcer-plugin
+										</artifactId>
+										<goals>
+											<goal>display-info</goal>
+										</goals>
+										<versionRange>1.0</versionRange>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -151,7 +184,9 @@
 				<executions>
 					<execution>
 						<id>enforce-maven</id>
+						<phase>validate</phase>
 						<goals>
+							<goal>display-info</goal>
 							<goal>enforce</goal>
 						</goals>
 						<configuration>
@@ -217,7 +252,7 @@
 							<transformers>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>org.openjdk.jmh.Main</mainClass>
+									<mainClass>stringbenchmarking.BenchmarkRunner</mainClass>
 								</transformer>
 							</transformers>
 							<filters>
