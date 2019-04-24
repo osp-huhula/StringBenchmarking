@@ -26,6 +26,7 @@ public class JMHResultImp
 	private String resultBenchmarkingAction;
 	private List<WarmupMeasure> warmupMeasures;
 	private List<IterationMeasure> iterationMeasures;
+	private String timeTotal;
 
 	@Override
 	public String getJMHVersion() {
@@ -261,4 +262,14 @@ public class JMHResultImp
 		}
 		getIterationMeasures().add(ierationMeasure);
 	}
+	
+	public String getTimeTotal() {
+		return timeTotal;
+	}
+
+	public void setTimeTotal(
+		String timeTotal) {
+		this.timeTotal = timeTotal;
+	}
+	
 }
