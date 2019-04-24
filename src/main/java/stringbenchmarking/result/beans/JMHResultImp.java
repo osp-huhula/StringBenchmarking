@@ -27,7 +27,8 @@ public class JMHResultImp
 	private List<WarmupMeasure> warmupMeasures;
 	private List<IterationMeasure> iterationMeasures;
 	private String timeTotal;
-
+	private List<JMHBenchmarkResult> benchmarkResults;
+	
 	@Override
 	public String getJMHVersion() {
 		return jmhVersion;
@@ -270,6 +271,23 @@ public class JMHResultImp
 	public void setTimeTotal(
 		String timeTotal) {
 		this.timeTotal = timeTotal;
+	}
+	
+	public List<JMHBenchmarkResult> getBenchmarkResults() {
+		return benchmarkResults;
+	}
+	
+	public void setBenchmarkResults(
+		List<JMHBenchmarkResult> benchmarkResults) {
+		this.benchmarkResults = benchmarkResults;
+	}
+
+	public void add(
+		JMHBenchmarkResult element) {
+		if(getBenchmarkResults() == null) {
+			setBenchmarkResults(new ArrayList<JMHBenchmarkResult>());
+		}
+		getBenchmarkResults().add(element);
 	}
 	
 }
