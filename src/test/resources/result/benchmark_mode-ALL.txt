@@ -1,0 +1,521 @@
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: stringbenchmarking.StringBenchmarkWithConcate.example
+
+# Run progress: 0,00% complete, ETA 00:00:24
+# Fork: 1 of 1
+# Warmup Iteration   1: 0,352 ops/ns
+Iteration   1: 0,376 ops/ns
+
+
+Result "example":
+  0,376 ops/ns
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: stringbenchmarking.StringBenchmarkWithPlus.example
+
+# Run progress: 8,33% complete, ETA 00:01:37
+# Fork: 1 of 1
+# Warmup Iteration   1: 0,321 ops/ns
+Iteration   1: 0,353 ops/ns
+
+
+Result "example":
+  0,353 ops/ns
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: stringbenchmarking.StringBenchmarkWithStringBuffer.example
+
+# Run progress: 16,66% complete, ETA 00:02:01
+# Fork: 1 of 1
+# Warmup Iteration   1: 0,291 ops/ns
+Iteration   1: 0,327 ops/ns
+
+
+Result "example":
+  0,327 ops/ns
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: stringbenchmarking.StringBenchmarkWithStringBuilder.example
+
+# Run progress: 24,99% complete, ETA 00:01:58
+# Fork: 1 of 1
+# Warmup Iteration   1: 0,316 ops/ns
+Iteration   1: 0,344 ops/ns
+
+
+Result "example":
+  0,344 ops/ns
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: stringbenchmarking.StringBenchmarkWithConcate.example
+
+# Run progress: 33,32% complete, ETA 00:01:49
+# Fork: 1 of 1
+# Warmup Iteration   1: 2,821 ns/op
+Iteration   1: 2,598 ns/op
+
+
+Result "example":
+  2,598 ns/op
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: stringbenchmarking.StringBenchmarkWithPlus.example
+
+# Run progress: 41,65% complete, ETA 00:01:37
+# Fork: 1 of 1
+# Warmup Iteration   1: 2,460 ns/op
+Iteration   1: 2,395 ns/op
+
+
+Result "example":
+  2,395 ns/op
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: stringbenchmarking.StringBenchmarkWithStringBuffer.example
+
+# Run progress: 49,98% complete, ETA 00:01:24
+# Fork: 1 of 1
+# Warmup Iteration   1: 2,476 ns/op
+Iteration   1: 2,438 ns/op
+
+
+Result "example":
+  2,438 ns/op
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: stringbenchmarking.StringBenchmarkWithStringBuilder.example
+
+# Run progress: 58,31% complete, ETA 00:01:11
+# Fork: 1 of 1
+# Warmup Iteration   1: 2,558 ns/op
+Iteration   1: 2,522 ns/op
+
+
+Result "example":
+  2,522 ns/op
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: stringbenchmarking.StringBenchmarkWithConcate.example
+
+# Run progress: 66,64% complete, ETA 00:00:57
+# Fork: 1 of 1
+# Warmup Iteration   1: 48,790 ±(99.9%) 13,700 ns/op
+Iteration   1: 40,092 ±(99.9%) 10,229 ns/op
+                 example·p0.00:   ? 0 ns/op
+                 example·p0.50:   ? 0 ns/op
+                 example·p0.90:   100,000 ns/op
+                 example·p0.95:   100,000 ns/op
+                 example·p0.99:   100,000 ns/op
+                 example·p0.999:  438,700 ns/op
+                 example·p0.9999: 24929,984 ns/op
+                 example·p1.00:   58240,000 ns/op
+
+
+
+Result "example":
+  N = 25612
+  mean =     40,092 ±(99.9%) 10,229 ns/op
+
+  Histogram, ns/op:
+    [    0,000,  5000,000) = 25600 
+    [ 5000,000, 10000,000) = 3 
+    [10000,000, 15000,000) = 3 
+    [15000,000, 20000,000) = 3 
+    [20000,000, 25000,000) = 1 
+    [25000,000, 30000,000) = 1 
+    [30000,000, 35000,000) = 0 
+    [35000,000, 40000,000) = 0 
+    [40000,000, 45000,000) = 0 
+    [45000,000, 50000,000) = 0 
+    [50000,000, 55000,000) = 0 
+
+  Percentiles, ns/op:
+      p(0,0000) =        ? 0 ns/op
+     p(50,0000) =        ? 0 ns/op
+     p(90,0000) =    100,000 ns/op
+     p(95,0000) =    100,000 ns/op
+     p(99,0000) =    100,000 ns/op
+     p(99,9000) =    438,700 ns/op
+     p(99,9900) =  24929,984 ns/op
+     p(99,9990) =  58240,000 ns/op
+     p(99,9999) =  58240,000 ns/op
+    p(100,0000) =  58240,000 ns/op
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: stringbenchmarking.StringBenchmarkWithPlus.example
+
+# Run progress: 74,98% complete, ETA 00:00:44
+# Fork: 1 of 1
+# Warmup Iteration   1: 46,710 ±(99.9%) 8,075 ns/op
+Iteration   1: 40,591 ±(99.9%) 11,619 ns/op
+                 example·p0.00:   ? 0 ns/op
+                 example·p0.50:   ? 0 ns/op
+                 example·p0.90:   100,000 ns/op
+                 example·p0.95:   100,000 ns/op
+                 example·p0.99:   100,000 ns/op
+                 example·p0.999:  947,400 ns/op
+                 example·p0.9999: 23849,402 ns/op
+                 example·p1.00:   72320,000 ns/op
+
+
+
+Result "example":
+  N = 25525
+  mean =     40,591 ±(99.9%) 11,619 ns/op
+
+  Histogram, ns/op:
+    [    0,000,  5000,000) = 25512 
+    [ 5000,000, 10000,000) = 6 
+    [10000,000, 15000,000) = 1 
+    [15000,000, 20000,000) = 2 
+    [20000,000, 25000,000) = 2 
+    [25000,000, 30000,000) = 1 
+    [30000,000, 35000,000) = 0 
+    [35000,000, 40000,000) = 0 
+    [40000,000, 45000,000) = 0 
+    [45000,000, 50000,000) = 0 
+    [50000,000, 55000,000) = 0 
+    [55000,000, 60000,000) = 0 
+    [60000,000, 65000,000) = 0 
+    [65000,000, 70000,000) = 0 
+    [70000,000, 75000,000) = 1 
+
+  Percentiles, ns/op:
+      p(0,0000) =        ? 0 ns/op
+     p(50,0000) =        ? 0 ns/op
+     p(90,0000) =    100,000 ns/op
+     p(95,0000) =    100,000 ns/op
+     p(99,0000) =    100,000 ns/op
+     p(99,9000) =    947,400 ns/op
+     p(99,9900) =  23849,402 ns/op
+     p(99,9990) =  72320,000 ns/op
+     p(99,9999) =  72320,000 ns/op
+    p(100,0000) =  72320,000 ns/op
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: stringbenchmarking.StringBenchmarkWithStringBuffer.example
+
+# Run progress: 83,31% complete, ETA 00:00:29
+# Fork: 1 of 1
+# Warmup Iteration   1: 40,645 ±(99.9%) 5,871 ns/op
+Iteration   1: 46,264 ±(99.9%) 20,025 ns/op
+                 example·p0.00:   ? 0 ns/op
+                 example·p0.50:   ? 0 ns/op
+                 example·p0.90:   100,000 ns/op
+                 example·p0.95:   100,000 ns/op
+                 example·p0.99:   100,000 ns/op
+                 example·p0.999:  702,600 ns/op
+                 example·p0.9999: 55612,915 ns/op
+                 example·p1.00:   118784,000 ns/op
+
+
+
+Result "example":
+  N = 24973
+  mean =     46,264 ±(99.9%) 20,025 ns/op
+
+  Histogram, ns/op:
+    [     0,000,  12500,000) = 24968 
+    [ 12500,000,  25000,000) = 2 
+    [ 25000,000,  37500,000) = 1 
+    [ 37500,000,  50000,000) = 0 
+    [ 50000,000,  62500,000) = 0 
+    [ 62500,000,  75000,000) = 0 
+    [ 75000,000,  87500,000) = 1 
+    [ 87500,000, 100000,000) = 0 
+    [100000,000, 112500,000) = 0 
+    [112500,000, 125000,000) = 1 
+    [125000,000, 137500,000) = 0 
+    [137500,000, 150000,000) = 0 
+    [150000,000, 162500,000) = 0 
+    [162500,000, 175000,000) = 0 
+    [175000,000, 187500,000) = 0 
+
+  Percentiles, ns/op:
+      p(0,0000) =        ? 0 ns/op
+     p(50,0000) =        ? 0 ns/op
+     p(90,0000) =    100,000 ns/op
+     p(95,0000) =    100,000 ns/op
+     p(99,0000) =    100,000 ns/op
+     p(99,9000) =    702,600 ns/op
+     p(99,9900) =  55612,915 ns/op
+     p(99,9990) = 118784,000 ns/op
+     p(99,9999) = 118784,000 ns/op
+    p(100,0000) = 118784,000 ns/op
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Sampling time
+# Benchmark: stringbenchmarking.StringBenchmarkWithStringBuilder.example
+
+# Run progress: 91,64% complete, ETA 00:00:14
+# Fork: 1 of 1
+# Warmup Iteration   1: 58,759 ±(99.9%) 23,702 ns/op
+Iteration   1: 54,711 ±(99.9%) 22,555 ns/op
+                 example·p0.00:   ? 0 ns/op
+                 example·p0.50:   ? 0 ns/op
+                 example·p0.90:   100,000 ns/op
+                 example·p0.95:   100,000 ns/op
+                 example·p0.99:   100,000 ns/op
+                 example·p0.999:  3327,400 ns/op
+                 example·p0.9999: 78160,397 ns/op
+                 example·p1.00:   99840,000 ns/op
+
+
+
+Result "example":
+  N = 23241
+  mean =     54,711 ±(99.9%) 22,555 ns/op
+
+  Histogram, ns/op:
+    [     0,000,  10000,000) = 23230 
+    [ 10000,000,  20000,000) = 5 
+    [ 20000,000,  30000,000) = 2 
+    [ 30000,000,  40000,000) = 0 
+    [ 40000,000,  50000,000) = 1 
+    [ 50000,000,  60000,000) = 1 
+    [ 60000,000,  70000,000) = 0 
+    [ 70000,000,  80000,000) = 0 
+    [ 80000,000,  90000,000) = 1 
+
+  Percentiles, ns/op:
+      p(0,0000) =        ? 0 ns/op
+     p(50,0000) =        ? 0 ns/op
+     p(90,0000) =    100,000 ns/op
+     p(95,0000) =    100,000 ns/op
+     p(99,0000) =    100,000 ns/op
+     p(99,9000) =   3327,400 ns/op
+     p(99,9900) =  78160,397 ns/op
+     p(99,9990) =  99840,000 ns/op
+     p(99,9999) =  99840,000 ns/op
+    p(100,0000) =  99840,000 ns/op
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, single-shot each
+# Measurement: 1 iterations, single-shot each
+# Timeout: 10 min per iteration
+# Threads: 1 thread
+# Benchmark mode: Single shot invocation time
+# Benchmark: stringbenchmarking.StringBenchmarkWithConcate.example
+
+# Run progress: 99,97% complete, ETA 00:00:00
+# Fork: 1 of 1
+# Warmup Iteration   1: 8100,000 ns/op
+Iteration   1: 1200,000 ns/op
+
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, single-shot each
+# Measurement: 1 iterations, single-shot each
+# Timeout: 10 min per iteration
+# Threads: 1 thread
+# Benchmark mode: Single shot invocation time
+# Benchmark: stringbenchmarking.StringBenchmarkWithPlus.example
+
+# Run progress: 99,98% complete, ETA 00:00:00
+# Fork: 1 of 1
+# Warmup Iteration   1: 13700,000 ns/op
+Iteration   1: 1100,000 ns/op
+
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, single-shot each
+# Measurement: 1 iterations, single-shot each
+# Timeout: 10 min per iteration
+# Threads: 1 thread
+# Benchmark mode: Single shot invocation time
+# Benchmark: stringbenchmarking.StringBenchmarkWithStringBuffer.example
+
+# Run progress: 99,98% complete, ETA 00:00:00
+# Fork: 1 of 1
+# Warmup Iteration   1: 7600,000 ns/op
+Iteration   1: 1100,000 ns/op
+
+
+
+# JMH 1.16 (released 887 days ago, please consider updating!)
+# VM version: JDK 1.6.0_45, VM 20.45-b01
+# VM invoker: C:\.app\JAVA\jdk1.6.0_45\jre\bin\java.exe
+# VM options: <none>
+# Warmup: 1 iterations, single-shot each
+# Measurement: 1 iterations, single-shot each
+# Timeout: 10 min per iteration
+# Threads: 1 thread
+# Benchmark mode: Single shot invocation time
+# Benchmark: stringbenchmarking.StringBenchmarkWithStringBuilder.example
+
+# Run progress: 99,99% complete, ETA 00:00:00
+# Fork: 1 of 1
+# Warmup Iteration   1: 20000,000 ns/op
+Iteration   1: 1400,000 ns/op
+
+
+
+# Run complete. Total time: 00:03:51
+
+Benchmark                                                   Mode    Cnt       Score    Error   Units
+StringBenchmarkWithConcate.example                         thrpt              0,376           ops/ns
+StringBenchmarkWithPlus.example                            thrpt              0,353           ops/ns
+StringBenchmarkWithStringBuffer.example                    thrpt              0,327           ops/ns
+StringBenchmarkWithStringBuilder.example                   thrpt              0,344           ops/ns
+StringBenchmarkWithConcate.example                          avgt              2,598            ns/op
+StringBenchmarkWithPlus.example                             avgt              2,395            ns/op
+StringBenchmarkWithStringBuffer.example                     avgt              2,438            ns/op
+StringBenchmarkWithStringBuilder.example                    avgt              2,522            ns/op
+StringBenchmarkWithConcate.example                        sample  25612      40,092 ± 10,229   ns/op
+StringBenchmarkWithConcate.example:example·p0.00          sample                ? 0            ns/op
+StringBenchmarkWithConcate.example:example·p0.50          sample                ? 0            ns/op
+StringBenchmarkWithConcate.example:example·p0.90          sample            100,000            ns/op
+StringBenchmarkWithConcate.example:example·p0.95          sample            100,000            ns/op
+StringBenchmarkWithConcate.example:example·p0.99          sample            100,000            ns/op
+StringBenchmarkWithConcate.example:example·p0.999         sample            438,700            ns/op
+StringBenchmarkWithConcate.example:example·p0.9999        sample          24929,984            ns/op
+StringBenchmarkWithConcate.example:example·p1.00          sample          58240,000            ns/op
+StringBenchmarkWithPlus.example                           sample  25525      40,591 ± 11,619   ns/op
+StringBenchmarkWithPlus.example:example·p0.00             sample                ? 0            ns/op
+StringBenchmarkWithPlus.example:example·p0.50             sample                ? 0            ns/op
+StringBenchmarkWithPlus.example:example·p0.90             sample            100,000            ns/op
+StringBenchmarkWithPlus.example:example·p0.95             sample            100,000            ns/op
+StringBenchmarkWithPlus.example:example·p0.99             sample            100,000            ns/op
+StringBenchmarkWithPlus.example:example·p0.999            sample            947,400            ns/op
+StringBenchmarkWithPlus.example:example·p0.9999           sample          23849,402            ns/op
+StringBenchmarkWithPlus.example:example·p1.00             sample          72320,000            ns/op
+StringBenchmarkWithStringBuffer.example                   sample  24973      46,264 ± 20,025   ns/op
+StringBenchmarkWithStringBuffer.example:example·p0.00     sample                ? 0            ns/op
+StringBenchmarkWithStringBuffer.example:example·p0.50     sample                ? 0            ns/op
+StringBenchmarkWithStringBuffer.example:example·p0.90     sample            100,000            ns/op
+StringBenchmarkWithStringBuffer.example:example·p0.95     sample            100,000            ns/op
+StringBenchmarkWithStringBuffer.example:example·p0.99     sample            100,000            ns/op
+StringBenchmarkWithStringBuffer.example:example·p0.999    sample            702,600            ns/op
+StringBenchmarkWithStringBuffer.example:example·p0.9999   sample          55612,915            ns/op
+StringBenchmarkWithStringBuffer.example:example·p1.00     sample         118784,000            ns/op
+StringBenchmarkWithStringBuilder.example                  sample  23241      54,711 ± 22,555   ns/op
+StringBenchmarkWithStringBuilder.example:example·p0.00    sample                ? 0            ns/op
+StringBenchmarkWithStringBuilder.example:example·p0.50    sample                ? 0            ns/op
+StringBenchmarkWithStringBuilder.example:example·p0.90    sample            100,000            ns/op
+StringBenchmarkWithStringBuilder.example:example·p0.95    sample            100,000            ns/op
+StringBenchmarkWithStringBuilder.example:example·p0.99    sample            100,000            ns/op
+StringBenchmarkWithStringBuilder.example:example·p0.999   sample           3327,400            ns/op
+StringBenchmarkWithStringBuilder.example:example·p0.9999  sample          78160,397            ns/op
+StringBenchmarkWithStringBuilder.example:example·p1.00    sample          99840,000            ns/op
+StringBenchmarkWithConcate.example                            ss           1200,000            ns/op
+StringBenchmarkWithPlus.example                               ss           1100,000            ns/op
+StringBenchmarkWithStringBuffer.example                       ss           1100,000            ns/op
+StringBenchmarkWithStringBuilder.example                      ss           1400,000            ns/op
