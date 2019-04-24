@@ -28,12 +28,14 @@ SET TIMESTAMP=%TIMESTAMP: =%
 
 ECHO "TIMESTAMP: " %TIMESTAMP% 
 
-::CMD /C mvn clean install -DskipTests
+CMD /C mvn clean install -q -DskipTests
 
 copy target\string-benchmarking-J6u45.1.1.jar c:\.tmp\JMH\%TIMESTAMP%.jar
 
 ::START CMD /C "java -jar c:\.tmp\JMH\%TIMESTAMP%.jar > C:\.rep\git\P\StringBenchmarking\src\test\resources\result\%TIMESTAMP%.log"
-java -jar c:\.tmp\JMH\%TIMESTAMP%.jar -rf json -o JMH-ouput-%TIMESTAMP% -rff JMH-result-%TIMESTAMP%.json
-
+MKDIR c:\.tmp\JMH\%TIMESTAMP%
+@ECHO ON
+java -jar c:\.tmp\JMH\%TIMESTAMP%.jar -rf json -o c:\.tmp\JMH\%TIMESTAMP%\JMH-ouput-%TIMESTAMP% -rff c:\.tmp\JMH\%TIMESTAMP%\JMH-result-%TIMESTAMP%.json
+@ECHO OFF
 
 ENDLOCAL
