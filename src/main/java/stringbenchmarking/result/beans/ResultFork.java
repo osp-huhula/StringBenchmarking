@@ -2,7 +2,8 @@ package stringbenchmarking.result.beans;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import stringbenchmarking.commons.zuz.ZuzObjects;
 
 public class ResultFork {
 
@@ -39,6 +40,6 @@ public class ResultFork {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return ZuzObjects.reflectionToString(this);
 	}
 }

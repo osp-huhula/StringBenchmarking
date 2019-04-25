@@ -5,7 +5,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import stringbenchmarking.commons.zuz.ZuzObjects;
 
 public class JMHResultImp
 	implements
@@ -218,7 +219,7 @@ public class JMHResultImp
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return ZuzObjects.reflectionToString(this);
 	}
 
 	private String toString(

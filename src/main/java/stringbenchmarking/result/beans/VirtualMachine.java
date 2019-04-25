@@ -4,8 +4,8 @@ import java.io.File;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import stringbenchmarking.commons.zuz.ZuzObjects;
 import stringbenchmarking.result.converter.line.beans.VMVersionLine;
 
 public class VirtualMachine {
@@ -78,6 +78,6 @@ public class VirtualMachine {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return ZuzObjects.reflectionToString(this);
 	}
 }
