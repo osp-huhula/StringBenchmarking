@@ -35,7 +35,7 @@ copy target\string-benchmarking-J6u45.1.1.jar c:\.tmp\JMH\%TIMESTAMP%.jar
 ::START CMD /C "java -jar c:\.tmp\JMH\%TIMESTAMP%.jar > C:\.rep\git\P\StringBenchmarking\src\test\resources\result\%TIMESTAMP%.log"
 MKDIR c:\.tmp\JMH\%TIMESTAMP%
 @ECHO ON
-java -jar c:\.tmp\JMH\%TIMESTAMP%.jar -rf json -o c:\.tmp\JMH\%TIMESTAMP%\JMH-ouput-%TIMESTAMP% -rff c:\.tmp\JMH\%TIMESTAMP%\JMH-result-%TIMESTAMP%.json
+java -jar c:\.tmp\JMH\%TIMESTAMP%.jar -rf json -o c:\\.tmp\\JMH\\%TIMESTAMP%\\JMH-ouput-%TIMESTAMP% -rff c:\\.tmp\\JMH\\%TIMESTAMP%\\JMH-result-%TIMESTAMP%.json
 @ECHO OFF
 
 ENDLOCAL

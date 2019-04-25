@@ -1,10 +1,13 @@
 package stringbenchmarking.result.converter;
 
+import java.io.File;
+
 import org.apache.commons.lang3.StringUtils;
 
 import stringbenchmarking.commons.exception.CustomEOFException;
 import stringbenchmarking.commons.exception.JMHRuntimeException;
 import stringbenchmarking.commons.exception.UnexpectedEOF;
+import stringbenchmarking.commons.io.ZuzFileReader;
 import stringbenchmarking.enums.BenchmarkModeEnum;
 import stringbenchmarking.result.beans.Fork;
 import stringbenchmarking.result.beans.JMHResult;
@@ -38,6 +41,17 @@ public final class JMHOutputResultConverterDefault
 
 	@Override
 	public JMHResult converter(
+		File file)
+		throws UnexpectedEOF {
+		String content = new ZuzFileReader().readFile(file);
+		if (StringUtils.isBlank(content)) {
+			throw new JMHRuntimeException("File : [" + file.getPath() + "] has no content.");
+		} else {
+			return converter(content);
+		}
+	}
+
+	public JMHResult converter(
 		String content)
 		throws UnexpectedEOF {
 		String[] result = content.split("\r\n|\r|\n");
@@ -55,7 +69,8 @@ public final class JMHOutputResultConverterDefault
 		throws UnexpectedEOF {
 		JMHResultImp result = new JMHResultImp();
 		try {
-			while (values.currentIndex() == -1 || !values.preview().startsWith("# Run complete")) {
+			while (values.currentIndex() == -1 || !values.preview().startsWith("# Run complete") ) {
+				values.nextNonBlankLine();
 				converterBenchmark(result, values);
 			}
 			result.setTimeTotal(new JMHResultTotalTimeLineConverter().converter(values.next()));
@@ -81,68 +96,80 @@ public final class JMHOutputResultConverterDefault
 		JMHResultImp result,
 		StringValues values)
 		throws CustomEOFException {
+		JMHVersionLineConverter jmhVersionLineConverter = new JMHVersionLineConverter();
+		VMVersionLineConverter vmVersionLineConverter = new VMVersionLineConverter();
+		VMInvokerLineConverter vmInvokerLineConverter = new VMInvokerLineConverter();
+		VMOptionsLineConverter vmOptionsLineConverter = new VMOptionsLineConverter();
+		MeasurementLineConverter measurementLineConverter = new MeasurementLineConverter();
+		TimeoutLineConverter timeoutLineConverter = new TimeoutLineConverter();
+		ThreadLineConverter threadLineConverter = new ThreadLineConverter();
+		BenchmarkModeLineConverter benchmarkModeLineConverter = new BenchmarkModeLineConverter();
+		BenchmarkActionLineConverter benchmarkActionLineConverter = new BenchmarkActionLineConverter();
+		RunProgressSummaryLineConverter runProgressSummaryLineConverter = new RunProgressSummaryLineConverter();
+		WarmupIterationLineConverter warmupIterationLineConverter = new WarmupIterationLineConverter();
+		IterationLineConverter iterationLineConverter = new IterationLineConverter();
+		ResultAverageLineConverter resultAverageLineConverter = new ResultAverageLineConverter();
+		
 		// HEADER
-		result.setJMHVersion(new JMHVersionLineConverter().converter(values.next()).toString());
+		result.setJMHVersion(jmhVersionLineConverter.converter(values.next()).toString());
 		VirtualMachine virtualMachine = new VirtualMachine();
-		virtualMachine.setVMVersion(new VMVersionLineConverter().converter(values.next()));
-		virtualMachine.setVMInvoker(new VMInvokerLineConverter().converter(values.next()));
-		virtualMachine.setVMOptions(new VMOptionsLineConverter().converter(values.next()));
+		virtualMachine.setVMVersion(vmVersionLineConverter.converter(values.next()));
+		virtualMachine.setVMInvoker(vmInvokerLineConverter.converter(values.next()));
+		virtualMachine.setVMOptions(vmOptionsLineConverter.converter(values.next()));
 		result.setVirtualMachine(virtualMachine);
 		String lineWarmup = values.next();
-		Measurement measurement = new MeasurementLineConverter().converter(values.next());
+		Measurement measurement = measurementLineConverter.converter(values.next());
 		result.setMeasurement(measurement);
-		result.setTimeout(new TimeoutLineConverter().converter(values.next()).toString());
-		result.setThreads(new ThreadLineConverter().converter(values.next()).toString());
-		BenchmarkModeEnum mode = new BenchmarkModeLineConverter().converter(values.next());
+		result.setTimeout(timeoutLineConverter.converter(values.next()).toString());
+		result.setThreads(threadLineConverter.converter(values.next()).toString());
+		BenchmarkModeEnum mode = benchmarkModeLineConverter.converter(values.next());
 		result.setBenchmarkMode(mode.getValue());
 		Warmup warmup = new WarmupLineConverter(mode).converter(lineWarmup);
 		result.setWarmup(warmup);
-		result.setBenchmarkingAction(new BenchmarkActionLineConverter().converter(values.next()));
+		result.setBenchmarkingAction(benchmarkActionLineConverter.converter(values.next()));
 		values.blankLine();
 		// PROCESS
 		result
-			.setRunProgressSummary(new RunProgressSummaryLineConverter().converter(values.next()));
+			.setRunProgressSummary(runProgressSummaryLineConverter.converter(values.next()));
 		Fork fork = new ForkLineConverter().converter(values.next());
 		result.setFork(fork);
 		int countWarmup = Integer.valueOf(warmup.getIterations());
 		while (countWarmup > 0) {
-			result.addWarmupMeasure(new WarmupIterationLineConverter().converter(values.next()));
+			result.addWarmupMeasure(warmupIterationLineConverter.converter(values.next()));
 			countWarmup--;
 		}
 		int countMeasurement = Integer.valueOf(measurement.getIterations());
 		while (countMeasurement > 0) {
-			result.addIterationMeasure(new IterationLineConverter().converter(values.next()));
+			result.addIterationMeasure(iterationLineConverter.converter(values.next()));
 			countMeasurement--;
 		}
-		values.blankLine();
+		values.nextNonBlankLine();
 		int countFork = fork.getTotal() - 1;
 		while (countFork > 0) {
-			new RunProgressSummaryLineConverter().converter(values.next());
+			runProgressSummaryLineConverter.converter(values.next());
 			new ForkLineConverter().converter(values.next());
 			int countForkWarmup = Integer.valueOf(warmup.getIterations());
 			while (countForkWarmup > 0) {
 				result
-					.addWarmupMeasure(new WarmupIterationLineConverter().converter(values.next()));
+					.addWarmupMeasure(warmupIterationLineConverter.converter(values.next()));
 				countForkWarmup--;
 			}
 			int countForkMeasurement = Integer.valueOf(measurement.getIterations());
 			while (countForkMeasurement > 0) {
-				result.addIterationMeasure(new IterationLineConverter().converter(values.next()));
+				result.addIterationMeasure(iterationLineConverter.converter(values.next()));
 				countForkMeasurement--;
 			}
 			countFork--;
-			values.blankLine();
-			values.blankLine();
-			System.err.println(values.next());
-			ResultFork resultAverage = new ResultFork();
-			resultAverage.setAverage(new ResultAverageLineConverter().converter(values.next()));
-			resultAverage
-				.setAverageStatistics(new ResultStatisticsLineConverter().converter(values.next()));
-			System.err.println(values.next());// TODO
-			// confidence interval
-			values.blankLine();
-			values.blankLine();
+			values.nextNonBlankLine();
 		}
+		System.err.println(values.next());
+		ResultFork resultAverage = new ResultFork();
+		resultAverage.setAverage(resultAverageLineConverter.converter(values.next()));
+		resultAverage
+		.setAverageStatistics(new ResultStatisticsLineConverter().converter(values.next()));
+		System.err.println(values.next());// TODO
+		// confidence interval
+		values.nextNonBlankLine();
 	}
 
 	class StringValues {
@@ -194,6 +221,12 @@ public final class JMHOutputResultConverterDefault
 				System.out.println("- blank line");
 			} else {
 				throw new IllegalArgumentException("Blank line expected here.");
+			}
+		}
+		
+		public void nextNonBlankLine() throws CustomEOFException {
+			while (StringUtils.isBlank(preview())) {
+				blankLine();
 			}
 		}
 	}

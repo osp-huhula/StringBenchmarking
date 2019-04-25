@@ -12,6 +12,8 @@ public class JMHResultImp
 	implements
 	JMHResult {
 
+	private static final long serialVersionUID = 1L;
+	
 	private String jmhVersion;
 	private VirtualMachine virtualMachine;
 	private Warmup warmup;
@@ -290,5 +292,5 @@ public class JMHResultImp
 		}
 		getBenchmarkResults().add(element);
 	}
-	
+
 }

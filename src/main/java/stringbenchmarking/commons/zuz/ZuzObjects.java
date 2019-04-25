@@ -10,12 +10,18 @@ public class ZuzObjects {
 	@Deprecated
 	/**
 	 * Use 4T -> Will be removed in a future TODO
+	 * 
 	 * @deprecated
 	 * @param style
 	 */
 	public static void changeDefaultStyle(
 		ToStringStyle style) {
 		DEFAULT_STYLE = style;
+	}
+
+	public static <T> T casting(
+		Object o) {
+		return (T) o;
 	}
 
 	public static String reflectionToString(
@@ -28,4 +34,5 @@ public class ZuzObjects {
 		ToStringStyle style) {
 		return ToStringBuilder.reflectionToString(object, style);
 	}
+
 }

@@ -1,6 +1,10 @@
 package stringbenchmarking.result.beans;
 
-public interface JMHResult {
+import java.io.Serializable;
+
+public interface JMHResult
+	extends
+	Serializable {
 
 	String getJMHVersion();
 

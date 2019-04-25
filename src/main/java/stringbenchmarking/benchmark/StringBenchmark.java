@@ -12,7 +12,7 @@ import org.openjdk.jmh.annotations.Warmup;
 import stringbenchmarking.benchmark.v01.StringBenchmarkState;
 
 @State(Scope.Benchmark)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
 @Fork(
 	value = StringBenchmarkState.FORK)
 @Warmup(
