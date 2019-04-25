@@ -19,6 +19,12 @@ public class ResultFork {
 		
 	}
 	
+	public void setSingleResult(
+		ResultForkSingle converter) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@Override
 	public boolean equals(
 		Object obj) {
@@ -42,4 +48,5 @@ public class ResultFork {
 	public String toString() {
 		return ZuzObjects.reflectionToString(this);
 	}
+
 }

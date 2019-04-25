@@ -8,6 +8,7 @@ import stringbenchmarking.commons.exception.CustomEOFException;
 import stringbenchmarking.commons.exception.JMHRuntimeException;
 import stringbenchmarking.commons.exception.UnexpectedEOF;
 import stringbenchmarking.commons.io.ZuzFileReader;
+import stringbenchmarking.commons.zuz.Zyz;
 import stringbenchmarking.enums.BenchmarkModeEnum;
 import stringbenchmarking.result.beans.Fork;
 import stringbenchmarking.result.beans.JMHResult;
@@ -33,6 +34,7 @@ import stringbenchmarking.result.converter.line.VMVersionLineConverter;
 import stringbenchmarking.result.converter.line.WarmupIterationLineConverter;
 import stringbenchmarking.result.converter.line.WarmupLineConverter;
 import stringbenchmarking.result.converter.line.average.ResultAverageLineConverter;
+import stringbenchmarking.result.converter.line.average.ResultSingleLineConverter;
 import stringbenchmarking.result.converter.line.average.ResultStatisticsLineConverter;
 
 public final class JMHOutputResultConverterDefault
@@ -74,10 +76,12 @@ public final class JMHOutputResultConverterDefault
 				converterBenchmark(result, values);
 			}
 			result.setTimeTotal(new JMHResultTotalTimeLineConverter().converter(values.next()));
-			values.blankLine();
+			values.nextNonBlankLine();
 			System.err.println(values.next());
+			values.nextNonBlankLine();
 			System.out.println("----");
-			while (values.notEOF()) {
+			while (values.notEOF() && !StringUtils.isBlank(values.preview())) {
+				Zyz.err(values.preview());
 				result.add(new BenchmarkResultLineConverter().converter(values.next()));
 			}
 			return result;
@@ -109,6 +113,7 @@ public final class JMHOutputResultConverterDefault
 		WarmupIterationLineConverter warmupIterationLineConverter = new WarmupIterationLineConverter();
 		IterationLineConverter iterationLineConverter = new IterationLineConverter();
 		ResultAverageLineConverter resultAverageLineConverter = new ResultAverageLineConverter();
+		ResultSingleLineConverter resultSingleLineConverter = new ResultSingleLineConverter();
 		
 		// HEADER
 		result.setJMHVersion(jmhVersionLineConverter.converter(values.next()).toString());
@@ -164,11 +169,15 @@ public final class JMHOutputResultConverterDefault
 		}
 		System.err.println(values.next());
 		ResultFork resultAverage = new ResultFork();
-		resultAverage.setAverage(resultAverageLineConverter.converter(values.next()));
-		resultAverage
-		.setAverageStatistics(new ResultStatisticsLineConverter().converter(values.next()));
-		System.err.println(values.next());// TODO
-		// confidence interval
+		if (fork.getTotal() == 1) {
+			resultAverage.setSingleResult(resultSingleLineConverter.converter(values.next()));
+		} else {
+			resultAverage.setAverage(resultAverageLineConverter.converter(values.next()));
+			resultAverage
+				.setAverageStatistics(new ResultStatisticsLineConverter().converter(values.next()));
+			System.err.println(values.next());// TODO
+			// confidence interval
+		}
 		values.nextNonBlankLine();
 	}
 

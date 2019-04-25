@@ -104,4 +104,16 @@ public class BenchmarkResultLineConverterTest {
 		Assert.assertEquals("4,623", result.getError());
 		Assert.assertEquals("ns/op", result.getUnits());
 	}
+	
+	@Test
+	public void converter09() {
+		JMHBenchmarkResult result = converter.converter(
+				"StringBenchmarkWithConcate.example          avgt    2  2,743          ns/op");
+		Assert.assertEquals("StringBenchmarkWithConcate.example", result.getName());
+		Assert.assertEquals("avgt", result.getType());
+		Assert.assertEquals("2", result.getCount());
+		Assert.assertEquals("2,743", result.getScore());
+		Assert.assertNull(result.getError());
+		Assert.assertEquals("ns/op", result.getUnits());
+	}
 }

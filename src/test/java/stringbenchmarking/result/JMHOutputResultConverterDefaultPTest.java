@@ -19,7 +19,7 @@ import stringbenchmarking.result.converter.JMHOutputResultConverterDefault;
 
 
 @RunWith(Parameterized.class)
-public class BenchmarkResultConverterDefaultTest {
+public class JMHOutputResultConverterDefaultPTest {
 
 	
 	@Parameters(name= "{index}: converting file[{0}]={1}")
@@ -32,13 +32,13 @@ public class BenchmarkResultConverterDefaultTest {
 //		data.add(new Object[] {new File("benchmark_mode-All-single")});
 //		data.add(new Object[] {new File("benchmark_mode-Throughput-multiple")});
 		
-		data.add(new Object[] {new File("benchmark_mode-AverageTime-multiple")});
+//		data.add(new Object[] {new File("benchmark_mode-AverageTime-multiple")});
 		
 //		data.add(new Object[] {new File("benchmark_mode-SampleTime-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-SingleShotTime-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-All-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-multiple-different")});
-//		data.add(new Object[] {new File("JMH-ouput-20190424.2335")});
+		data.add(new Object[] {new File("JMH-ouput-20190424.2335")});
 		return data;
 	}
 	
@@ -47,7 +47,7 @@ public class BenchmarkResultConverterDefaultTest {
 
 	private File file;
 
-	public BenchmarkResultConverterDefaultTest(
+	public JMHOutputResultConverterDefaultPTest(
 		File file) {
 		super();
 		this.file = file;
