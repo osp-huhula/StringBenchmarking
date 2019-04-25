@@ -22,7 +22,7 @@ public class IterationLineConverterTest {
 	public void converterAveragetime() {
 		IterationMeasure result = converter.converter("Iteration   1: 3,574 ns/op");
 		Assert.assertEquals(Integer.valueOf("1"), result.getIndex());
-		Assert.assertEquals("2,647", result.getResult());
-		Assert.assertEquals(Double.valueOf("2.647"), result.getResultAsDouble(), 0);
+		Assert.assertEquals("3,574", result.getResult());
+		Assert.assertEquals(Double.valueOf("3.574"), result.getResultAsDouble(), 0);
 	}
 }

@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import stringbenchmarking.commons.exception.CustomEOFException;
 import stringbenchmarking.commons.exception.JMHRuntimeException;
+import stringbenchmarking.commons.exception.UnexpectedEOF;
 import stringbenchmarking.enums.BenchmarkModeEnum;
 import stringbenchmarking.result.beans.Fork;
 import stringbenchmarking.result.beans.JMHResult;
@@ -14,6 +15,7 @@ import stringbenchmarking.result.beans.VirtualMachine;
 import stringbenchmarking.result.beans.Warmup;
 import stringbenchmarking.result.converter.line.BenchmarkActionLineConverter;
 import stringbenchmarking.result.converter.line.BenchmarkModeLineConverter;
+import stringbenchmarking.result.converter.line.BenchmarkResultLineConverter;
 import stringbenchmarking.result.converter.line.ForkLineConverter;
 import stringbenchmarking.result.converter.line.IterationLineConverter;
 import stringbenchmarking.result.converter.line.JMHResultTotalTimeLineConverter;
@@ -30,40 +32,45 @@ import stringbenchmarking.result.converter.line.WarmupLineConverter;
 import stringbenchmarking.result.converter.line.average.ResultAverageLineConverter;
 import stringbenchmarking.result.converter.line.average.ResultStatisticsLineConverter;
 
-
-public class BenchmarkResultConverterDefault
+public final class JMHOutputResultConverterDefault
 	implements
-	ResultConverter {
+	JMHOutputResultConverter {
 
 	@Override
 	public JMHResult converter(
-		String content) {
+		String content)
+		throws UnexpectedEOF {
 		String[] result = content.split("\r\n|\r|\n");
 		return converter(result);
 	}
 
 	private JMHResult converter(
-		String[] contentLines) {
+		String[] contentLines)
+		throws UnexpectedEOF {
+		return converter(new StringValues(contentLines));
+	}
+
+	private JMHResult converter(
+		StringValues values)
+		throws UnexpectedEOF {
 		JMHResultImp result = new JMHResultImp();
-		StringValues values = new StringValues(contentLines);
 		try {
-			while(values.currentIndex() == -1 || !values.preview().startsWith("# Run complete")) {
+			while (values.currentIndex() == -1 || !values.preview().startsWith("# Run complete")) {
 				converterBenchmark(result, values);
 			}
-			
-			boolean x = true;
 			result.setTimeTotal(new JMHResultTotalTimeLineConverter().converter(values.next()));
-			while(x) {
-				System.err.println(values.next());
+			values.blankLine();
+			System.err.println(values.next());
+			System.out.println("----");
+			while (values.notEOF()) {
+				result.add(new BenchmarkResultLineConverter().converter(values.next()));
 			}
-			//RESULT
 			return result;
 		} catch (CustomEOFException e) {
-			//nothing
-			return result;
-			
+			throw new UnexpectedEOF(result, e);
 		} catch (Exception e) {
-			String message = String.format("Could not convert line %s : [%s]", values.currentIndex() + 1, contentLines[values.currentIndex()]);
+			String message = String.format("Could not convert line %s : [%s]",
+				values.currentIndex() + 1, values.current());
 			System.err.println(message);
 			System.err.println(e.getMessage());
 			throw new JMHRuntimeException(message, e);
@@ -74,7 +81,7 @@ public class BenchmarkResultConverterDefault
 		JMHResultImp result,
 		StringValues values)
 		throws CustomEOFException {
-		//HEADER
+		// HEADER
 		result.setJMHVersion(new JMHVersionLineConverter().converter(values.next()).toString());
 		VirtualMachine virtualMachine = new VirtualMachine();
 		virtualMachine.setVMVersion(new VMVersionLineConverter().converter(values.next()));
@@ -88,17 +95,15 @@ public class BenchmarkResultConverterDefault
 		result.setThreads(new ThreadLineConverter().converter(values.next()).toString());
 		BenchmarkModeEnum mode = new BenchmarkModeLineConverter().converter(values.next());
 		result.setBenchmarkMode(mode.getValue());
-		
 		Warmup warmup = new WarmupLineConverter(mode).converter(lineWarmup);
 		result.setWarmup(warmup);
-		
 		result.setBenchmarkingAction(new BenchmarkActionLineConverter().converter(values.next()));
-		blankLine(values);
-		//PROCESS
-		result.setRunProgressSummary(new RunProgressSummaryLineConverter().converter(values.next()));
+		values.blankLine();
+		// PROCESS
+		result
+			.setRunProgressSummary(new RunProgressSummaryLineConverter().converter(values.next()));
 		Fork fork = new ForkLineConverter().converter(values.next());
 		result.setFork(fork);
-		
 		int countWarmup = Integer.valueOf(warmup.getIterations());
 		while (countWarmup > 0) {
 			result.addWarmupMeasure(new WarmupIterationLineConverter().converter(values.next()));
@@ -109,14 +114,15 @@ public class BenchmarkResultConverterDefault
 			result.addIterationMeasure(new IterationLineConverter().converter(values.next()));
 			countMeasurement--;
 		}
-		blankLine(values);
+		values.blankLine();
 		int countFork = fork.getTotal() - 1;
 		while (countFork > 0) {
 			new RunProgressSummaryLineConverter().converter(values.next());
 			new ForkLineConverter().converter(values.next());
 			int countForkWarmup = Integer.valueOf(warmup.getIterations());
 			while (countForkWarmup > 0) {
-				result.addWarmupMeasure(new WarmupIterationLineConverter().converter(values.next()));
+				result
+					.addWarmupMeasure(new WarmupIterationLineConverter().converter(values.next()));
 				countForkWarmup--;
 			}
 			int countForkMeasurement = Integer.valueOf(measurement.getIterations());
@@ -125,25 +131,17 @@ public class BenchmarkResultConverterDefault
 				countForkMeasurement--;
 			}
 			countFork--;
-			blankLine(values);
-			blankLine(values);
+			values.blankLine();
+			values.blankLine();
 			System.err.println(values.next());
 			ResultFork resultAverage = new ResultFork();
 			resultAverage.setAverage(new ResultAverageLineConverter().converter(values.next()));
-			resultAverage.setAverageStatistics(new ResultStatisticsLineConverter().converter(values.next()));
-			System.err.println(values.next());//TODO
-//				confidence interval 
-			blankLine(values);
-			blankLine(values);
-		}
-	}
-
-	private void blankLine(
-		StringValues values) throws CustomEOFException {
-		if (StringUtils.isBlank(values.next())) {
-			System.out.println("- blank line");
-		} else {
-			throw new IllegalArgumentException("Blank line expected here.");
+			resultAverage
+				.setAverageStatistics(new ResultStatisticsLineConverter().converter(values.next()));
+			System.err.println(values.next());// TODO
+			// confidence interval
+			values.blankLine();
+			values.blankLine();
 		}
 	}
 
@@ -152,38 +150,54 @@ public class BenchmarkResultConverterDefault
 		private String[] values;
 		private Index index;
 
-		public StringValues(String[] values) {
+		public StringValues(
+			String[] values) {
 			this(values, new Index());
 		}
 
-		public StringValues(
-			String[] values, Index index) {
-				this.values = values;
-				this.index = index;
+		public boolean notEOF() {
+			return this.currentIndex() < values.length - 1;
 		}
-		
-		public String next() throws CustomEOFException {
+
+		public StringValues(
+			String[] values,
+			Index index) {
+			this.values = values;
+			this.index = index;
+		}
+
+		public String next()
+			throws CustomEOFException {
 			int current = index.next();
-			if(current == values.length) {
+			if (current == values.length) {
 				throw new CustomEOFException();
-			}else {
+			} else {
 				return values[current];
 			}
 		}
-		
+
 		public int currentIndex() {
 			return index.currentIndex();
 		}
-		
+
 		public String current() {
 			return values[index.currentIndex()];
 		}
-		
+
 		public String preview() {
 			return values[index.currentIndex() + 1];
 		}
-		
+
+		public void blankLine()
+			throws CustomEOFException {
+			if (StringUtils.isBlank(next())) {
+				System.out.println("- blank line");
+			} else {
+				throw new IllegalArgumentException("Blank line expected here.");
+			}
+		}
 	}
+
 	class Index {
 
 		private int index;
@@ -197,7 +211,7 @@ public class BenchmarkResultConverterDefault
 			super();
 			this.index = index;
 		}
-		
+
 		public int currentIndex() {
 			return index;
 		}
@@ -205,9 +219,6 @@ public class BenchmarkResultConverterDefault
 		public int next() {
 			index++;
 			return index;
-			
 		}
-
 	}
-	
 }

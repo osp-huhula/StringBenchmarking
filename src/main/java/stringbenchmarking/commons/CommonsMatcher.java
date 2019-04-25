@@ -15,7 +15,7 @@ public class CommonsMatcher {
 			return matcher;
 		} else {
 			throw new JMHRuntimeException(
-				String.format("Patter [%s] doesn't match with content : [%s].", regex, content));
+				String.format("Pattern [%s] doesn't match with content : [%s].", regex, content));
 		}
 	}
 

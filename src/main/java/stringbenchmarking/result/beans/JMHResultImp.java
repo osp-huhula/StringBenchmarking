@@ -5,7 +5,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import stringbenchmarking.commons.zuz.ZuzObjects;
 
 public class JMHResultImp
 	implements
@@ -27,7 +28,8 @@ public class JMHResultImp
 	private List<WarmupMeasure> warmupMeasures;
 	private List<IterationMeasure> iterationMeasures;
 	private String timeTotal;
-
+	private List<JMHBenchmarkResult> benchmarkResults;
+	
 	@Override
 	public String getJMHVersion() {
 		return jmhVersion;
@@ -217,7 +219,7 @@ public class JMHResultImp
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return ZuzObjects.reflectionToString(this);
 	}
 
 	private String toString(
@@ -270,6 +272,23 @@ public class JMHResultImp
 	public void setTimeTotal(
 		String timeTotal) {
 		this.timeTotal = timeTotal;
+	}
+	
+	public List<JMHBenchmarkResult> getBenchmarkResults() {
+		return benchmarkResults;
+	}
+	
+	public void setBenchmarkResults(
+		List<JMHBenchmarkResult> benchmarkResults) {
+		this.benchmarkResults = benchmarkResults;
+	}
+
+	public void add(
+		JMHBenchmarkResult element) {
+		if(getBenchmarkResults() == null) {
+			setBenchmarkResults(new ArrayList<JMHBenchmarkResult>());
+		}
+		getBenchmarkResults().add(element);
 	}
 	
 }
