@@ -32,9 +32,9 @@ import stringbenchmarking.result.converter.line.WarmupLineConverter;
 import stringbenchmarking.result.converter.line.average.ResultAverageLineConverter;
 import stringbenchmarking.result.converter.line.average.ResultStatisticsLineConverter;
 
-public class BenchmarkResultConverterDefault
+public final class JMHOutputResultConverterDefault
 	implements
-	ResultConverter {
+	JMHOutputResultConverter {
 
 	@Override
 	public JMHResult converter(

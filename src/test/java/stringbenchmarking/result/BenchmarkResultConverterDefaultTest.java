@@ -14,7 +14,7 @@ import stringbenchmarking.commons.FileReader;
 import stringbenchmarking.commons.exception.UnexpectedEOF;
 import stringbenchmarking.commons.zuz.ZuzObjects;
 import stringbenchmarking.result.beans.JMHResult;
-import stringbenchmarking.result.converter.BenchmarkResultConverterDefault;
+import stringbenchmarking.result.converter.JMHOutputResultConverterDefault;
 
 
 
@@ -40,7 +40,7 @@ public class BenchmarkResultConverterDefaultTest {
 	}
 	
 	private final FileReader reader = new FileReader();
-	private final BenchmarkResultConverterDefault converter = new BenchmarkResultConverterDefault();
+	private final JMHOutputResultConverterDefault converter = new JMHOutputResultConverterDefault();
 
 	private File file;
 

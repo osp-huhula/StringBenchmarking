@@ -3,7 +3,7 @@ package stringbenchmarking.result.converter;
 import stringbenchmarking.commons.exception.UnexpectedEOF;
 import stringbenchmarking.result.beans.JMHResult;
 
-public interface ResultConverter {
+public interface JMHOutputResultConverter {
 
 	JMHResult converter(
 		String content)
