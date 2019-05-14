@@ -1,11 +1,15 @@
 package stringbenchmarking.result.beans;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import stringbenchmarking.commons.zuz.ZuzObjects;
 
-public class JMHBenchmarkResult {
+public class JMHBenchmarkResult
+	implements
+	Serializable {
 
 	private String name;
 	private String type;
@@ -74,8 +78,8 @@ public class JMHBenchmarkResult {
 		if (this == obj) {
 			return true;
 		}
-		if (obj instanceof WarmupMeasure) {
-			WarmupMeasure o = (WarmupMeasure) obj;
+		if (obj instanceof JMHBenchmarkResult) {
+			JMHBenchmarkResult o = (JMHBenchmarkResult) obj;
 			return EqualsBuilder.reflectionEquals(this, o, true);
 		} else {
 			return false;

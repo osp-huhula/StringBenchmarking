@@ -79,9 +79,9 @@ public class StringBenchmarkState {
 		org.openjdk.jmh.annotations.Mode.AverageTime,
 		org.openjdk.jmh.annotations.Mode.SingleShotTime
 	};
-	public static final int FORK = 1;
-	public static final int WARMUP = 2;
-	public static final int MEASUREMENT = 2;
+	public static final int FORK = 20;
+	public static final int WARMUP = 20;
+	public static final int MEASUREMENT = 20;
 
 	public static StringCancatenate PLUS = new StringCancatenateWithPlus();
 	public static StringCancatenate CONCAT = new StringCancatenateWithConcat();

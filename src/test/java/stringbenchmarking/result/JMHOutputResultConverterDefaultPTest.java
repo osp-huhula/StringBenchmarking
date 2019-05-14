@@ -5,11 +5,14 @@ import java.util.ArrayList;
 
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import org.mockito.Mockito;
 
+import stringbenchmarking.commons.DateProvider;
 import stringbenchmarking.commons.ResourceReader;
 import stringbenchmarking.commons.exception.UnexpectedEOF;
 import stringbenchmarking.commons.zuz.ZuzObjects;
@@ -43,7 +46,8 @@ public class JMHOutputResultConverterDefaultPTest {
 	}
 	
 	private final ResourceReader reader = new ResourceReader();
-	private final JMHOutputResultConverterDefault converter = new JMHOutputResultConverterDefault();
+	private final DateProvider dateProvider = Mockito.mock(DateProvider.class);
+	private final JMHOutputResultConverterDefault converter = new JMHOutputResultConverterDefault(dateProvider);
 
 	private File file;
 
@@ -52,6 +56,11 @@ public class JMHOutputResultConverterDefaultPTest {
 		super();
 		this.file = file;
 	}
+	
+	@Before
+	public void setUp() {
+		Mockito.when(dateProvider.nowAsString()).thenReturn("20010101.000000000", "29991230.235959000");
+	}
 
 	@Test
 	public void converter()
@@ -59,14 +68,15 @@ public class JMHOutputResultConverterDefaultPTest {
 		String content = reader.readFile("//result/" + file.getName() + ".log");
 		String expectedContent = reader.readFile("expected/" + file.getName());
 		JMHResult result = converter.converter(content);
-		String actual = toString(result);
+		String actual = asString(result);
 		Assert.assertEquals(expectedContent, actual);
+		Mockito.verify(dateProvider, Mockito.times(2)).nowAsString();
 	}
 
-	private String toString(
+	private String asString(
 		JMHResult result) {
 		ZuzObjects.changeDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE);
 		return ZuzObjects.reflectionToString(result);
 	}
-	
+
 }

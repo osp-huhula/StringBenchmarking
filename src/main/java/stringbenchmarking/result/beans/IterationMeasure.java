@@ -1,12 +1,16 @@
 package stringbenchmarking.result.beans;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import stringbenchmarking.commons.DoubleConverter;
 import stringbenchmarking.commons.zuz.ZuzObjects;
 
-public class IterationMeasure {
+public class IterationMeasure
+	implements
+	Serializable {
 
 	private Integer index;
 	private String result;
@@ -39,8 +43,8 @@ public class IterationMeasure {
 		if (this == obj) {
 			return true;
 		}
-		if (obj instanceof WarmupMeasure) {
-			WarmupMeasure o = (WarmupMeasure) obj;
+		if (obj instanceof IterationMeasure) {
+			IterationMeasure o = (IterationMeasure) obj;
 			return EqualsBuilder.reflectionEquals(this, o, true);
 		} else {
 			return false;

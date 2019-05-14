@@ -1,6 +1,7 @@
 package stringbenchmarking.result.beans;
 
 import java.io.File;
+import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -8,7 +9,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import stringbenchmarking.commons.zuz.ZuzObjects;
 import stringbenchmarking.result.converter.line.beans.VMVersionLine;
 
-public class VirtualMachine {
+public class VirtualMachine
+	implements
+	Serializable {
 
 	private String jdkVersion;
 	private String vmVersion;
@@ -63,8 +66,8 @@ public class VirtualMachine {
 		if (this == obj) {
 			return true;
 		}
-		if (obj instanceof WarmupMeasure) {
-			WarmupMeasure o = (WarmupMeasure) obj;
+		if (obj instanceof VirtualMachine) {
+			VirtualMachine o = (VirtualMachine) obj;
 			return EqualsBuilder.reflectionEquals(this, o, true);
 		} else {
 			return false;

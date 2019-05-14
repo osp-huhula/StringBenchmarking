@@ -7,7 +7,6 @@ import java.util.List;
 import stringbenchmarking.commons.exception.JMHRuntimeException;
 import stringbenchmarking.commons.exception.UnexpectedEOF;
 import stringbenchmarking.commons.zuz.ZuzFiles;
-import stringbenchmarking.commons.zuz.ZuzSerializer;
 import stringbenchmarking.commons.zuz.Zyz;
 import stringbenchmarking.result.beans.JMHResult;
 import stringbenchmarking.result.converter.JMHOutputResultConverter;
@@ -15,7 +14,7 @@ import stringbenchmarking.result.converter.JMHOutputResultConverterDefault;
 
 public class BenchmarkRunner {
 	
-	private static final JMHOutputResultConverter CONVERTER = new JMHOutputResultConverterDefault();
+	private static final JMHOutputResultConverter CONVERTER= new JMHOutputResultConverterDefault();
 
 	public static void main(
 		String[] args)
@@ -38,7 +37,7 @@ public class BenchmarkRunner {
 			Zyz.out("converting");
 			JMHResult result = CONVERTER.converter(file);
 			Zyz.out("serializing");
-			ZuzSerializer.serializing(result, new File(file.getPath() + ".ser"));
+//			JMHResultSerializer.serializing(result, new File(file.getPath() + ".ser"));
 		} else {
 			System.err.println("not exist.");
 		}

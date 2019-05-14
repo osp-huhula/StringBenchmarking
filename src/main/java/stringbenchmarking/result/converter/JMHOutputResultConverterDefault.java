@@ -4,6 +4,8 @@ import java.io.File;
 
 import org.apache.commons.lang3.StringUtils;
 
+import stringbenchmarking.commons.DateProvider;
+import stringbenchmarking.commons.DateProviderDefault;
 import stringbenchmarking.commons.exception.CustomEOFException;
 import stringbenchmarking.commons.exception.JMHRuntimeException;
 import stringbenchmarking.commons.exception.UnexpectedEOF;
@@ -40,6 +42,33 @@ import stringbenchmarking.result.converter.line.average.ResultStatisticsLineConv
 public final class JMHOutputResultConverterDefault
 	implements
 	JMHOutputResultConverter {
+	
+	private final JMHVersionLineConverter jmhVersionLineConverter = new JMHVersionLineConverter();
+	private final VMVersionLineConverter vmVersionLineConverter = new VMVersionLineConverter();
+	private final VMInvokerLineConverter vmInvokerLineConverter = new VMInvokerLineConverter();
+	private final VMOptionsLineConverter vmOptionsLineConverter = new VMOptionsLineConverter();
+	private final MeasurementLineConverter measurementLineConverter = new MeasurementLineConverter();
+	private final TimeoutLineConverter timeoutLineConverter = new TimeoutLineConverter();
+	private final ThreadLineConverter threadLineConverter = new ThreadLineConverter();
+	private final BenchmarkModeLineConverter benchmarkModeLineConverter = new BenchmarkModeLineConverter();
+	private final BenchmarkActionLineConverter benchmarkActionLineConverter = new BenchmarkActionLineConverter();
+	private final RunProgressSummaryLineConverter runProgressSummaryLineConverter = new RunProgressSummaryLineConverter();
+	private final WarmupIterationLineConverter warmupIterationLineConverter = new WarmupIterationLineConverter();
+	private final IterationLineConverter iterationLineConverter = new IterationLineConverter();
+	private final ResultAverageLineConverter resultAverageLineConverter = new ResultAverageLineConverter();
+	private final ResultSingleLineConverter resultSingleLineConverter = new ResultSingleLineConverter();
+	private final ResultStatisticsLineConverter resultStatisticsLineConverter = new ResultStatisticsLineConverter();
+	private final DateProvider dateProvider;
+	
+	public JMHOutputResultConverterDefault() {
+		this(new DateProviderDefault());
+	}
+	
+	public JMHOutputResultConverterDefault(
+		DateProvider dateProvider) {
+		super();
+		this.dateProvider = dateProvider;
+	}
 
 	@Override
 	public JMHResult converter(
@@ -70,6 +99,7 @@ public final class JMHOutputResultConverterDefault
 		StringValues values)
 		throws UnexpectedEOF {
 		JMHResultImp result = new JMHResultImp();
+		result.setProcessStart(dateProvider);
 		try {
 			while (values.currentIndex() == -1 || !values.preview().startsWith("# Run complete") ) {
 				values.nextNonBlankLine();
@@ -84,6 +114,7 @@ public final class JMHOutputResultConverterDefault
 				Zyz.err(values.preview());
 				result.add(new BenchmarkResultLineConverter().converter(values.next()));
 			}
+			result.setProcessEnd(dateProvider);
 			return result;
 		} catch (CustomEOFException e) {
 			throw new UnexpectedEOF(result, e);
@@ -100,20 +131,6 @@ public final class JMHOutputResultConverterDefault
 		JMHResultImp result,
 		StringValues values)
 		throws CustomEOFException {
-		JMHVersionLineConverter jmhVersionLineConverter = new JMHVersionLineConverter();
-		VMVersionLineConverter vmVersionLineConverter = new VMVersionLineConverter();
-		VMInvokerLineConverter vmInvokerLineConverter = new VMInvokerLineConverter();
-		VMOptionsLineConverter vmOptionsLineConverter = new VMOptionsLineConverter();
-		MeasurementLineConverter measurementLineConverter = new MeasurementLineConverter();
-		TimeoutLineConverter timeoutLineConverter = new TimeoutLineConverter();
-		ThreadLineConverter threadLineConverter = new ThreadLineConverter();
-		BenchmarkModeLineConverter benchmarkModeLineConverter = new BenchmarkModeLineConverter();
-		BenchmarkActionLineConverter benchmarkActionLineConverter = new BenchmarkActionLineConverter();
-		RunProgressSummaryLineConverter runProgressSummaryLineConverter = new RunProgressSummaryLineConverter();
-		WarmupIterationLineConverter warmupIterationLineConverter = new WarmupIterationLineConverter();
-		IterationLineConverter iterationLineConverter = new IterationLineConverter();
-		ResultAverageLineConverter resultAverageLineConverter = new ResultAverageLineConverter();
-		ResultSingleLineConverter resultSingleLineConverter = new ResultSingleLineConverter();
 		
 		// HEADER
 		result.setJMHVersion(jmhVersionLineConverter.converter(values.next()).toString());
@@ -173,8 +190,7 @@ public final class JMHOutputResultConverterDefault
 			resultAverage.setSingleResult(resultSingleLineConverter.converter(values.next()));
 		} else {
 			resultAverage.setAverage(resultAverageLineConverter.converter(values.next()));
-			resultAverage
-				.setAverageStatistics(new ResultStatisticsLineConverter().converter(values.next()));
+			resultAverage.setAverageStatistics(resultStatisticsLineConverter.converter(values.next()));
 			System.err.println(values.next());// TODO
 			// confidence interval
 		}

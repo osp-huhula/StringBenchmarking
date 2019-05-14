@@ -56,16 +56,16 @@ public class ZuzSerializer {
 		}
 	}
 
-	public static <T extends Serializable> String serializing(
+	public static <T extends Serializable> byte[] serializing(
 		T o) {
 		try {
-			OutputStream oStream = new ByteArrayOutputStream();
+			ByteArrayOutputStream oStream = new ByteArrayOutputStream();
 			try {
 				ObjectOutputStream output = new ObjectOutputStream(oStream);
 				try {
 					output.writeObject(o);
 					output.flush();
-					return output.toString();
+					return oStream.toByteArray();
 				} finally {
 					AUTO_CLOSER.executeClose(output);
 				}

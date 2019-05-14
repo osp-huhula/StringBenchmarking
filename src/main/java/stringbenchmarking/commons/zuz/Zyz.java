@@ -21,4 +21,11 @@ public class Zyz {
 		String value) {
 		System.err.println(value);
 	}
+
+	public static void err(
+		String value,
+		Exception e) {
+		System.err.println(value);
+		e.printStackTrace();
+	}
 }

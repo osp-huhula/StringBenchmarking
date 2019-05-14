@@ -6,13 +6,15 @@ import java.util.List;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import stringbenchmarking.commons.DateProvider;
 import stringbenchmarking.commons.zuz.ZuzObjects;
 
 public class JMHResultImp
 	implements
 	JMHResult {
 
-	private static final long serialVersionUID = 1L;
+	private String dtStart;
+	private String dtEnd;
 	
 	private String jmhVersion;
 	private VirtualMachine virtualMachine;
@@ -24,12 +26,11 @@ public class JMHResultImp
 	private String benchmarkingAction;
 	private RunProgressSummary runProgressSummary;
 	private Fork fork;
-	private WarmupMeasure warmupMeasure;
-	private IterationMeasure iterationMeasure;
 	private String resultBenchmarkingAction;
+	private String timeTotal;
+	
 	private List<WarmupMeasure> warmupMeasures;
 	private List<IterationMeasure> iterationMeasures;
-	private String timeTotal;
 	private List<JMHBenchmarkResult> benchmarkResults;
 	
 	@Override
@@ -170,26 +171,6 @@ public class JMHResultImp
 		return fork.getTotal();
 	}
 
-	public void setWarmupMeasure(
-		WarmupMeasure warmupMeasure) {
-		this.warmupMeasure = warmupMeasure;
-	}
-
-	@Override
-	public String getWarmupIterationMeasure() {
-		return warmupMeasure.getResult();
-	}
-
-	public void setIterationMeasure(
-		IterationMeasure iterationMeasure) {
-		this.iterationMeasure = iterationMeasure;
-	}
-
-	@Override
-	public String getIterationMeasure() {
-		return iterationMeasure.getResult();
-	}
-
 	@Override
 	public String getResultBenchmarkingAction() {
 		return resultBenchmarkingAction;
@@ -201,7 +182,7 @@ public class JMHResultImp
 	}
 
 	@Override
-	public boolean equals(
+	public final boolean equals(
 		Object obj) {
 		if (this == obj) {
 			return true;
@@ -214,8 +195,40 @@ public class JMHResultImp
 		}
 	}
 
+//	@Override
+//	public final boolean equals(
+//		Object obj) {
+//		if (this == obj) {
+//			return true;
+//		}
+//		if (obj instanceof JMHResultImp) {
+//			JMHResultImp o = (JMHResultImp) obj;
+//			return new EqualsBuilder()
+//					.append(dtStart, o.dtStart)
+//					.append(dtEnd, o.dtEnd)
+//					.append(jmhVersion, o.jmhVersion)
+//					.append(virtualMachine, o.virtualMachine)
+//					.append(warmup, o.warmup)
+//					.append(measurement, o.measurement)
+//					.append(timeout, o.timeout)
+//					.append(threads, o.threads)
+//					.append(benchmarkMode, o.benchmarkMode)
+//					.append(benchmarkingAction, o.benchmarkingAction)
+//					.append(runProgressSummary, o.runProgressSummary)
+//					.append(fork, o.fork)
+//					.append(resultBenchmarkingAction, o.resultBenchmarkingAction)
+//					.append(timeTotal, o.timeTotal)
+//					.append(warmupMeasures, o.warmupMeasures)
+//					.append(iterationMeasures, o.iterationMeasures)
+//					.append(benchmarkResults, o.benchmarkResults)
+//					.isEquals();
+//		} else {
+//			return false;
+//		}
+//	}
+	
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this, false);
 	}
 
@@ -292,5 +305,31 @@ public class JMHResultImp
 		}
 		getBenchmarkResults().add(element);
 	}
+	
+	public String getDtStart() {
+		return dtStart;
+	}
 
+	public void setDtStart(
+		String dtStart) {
+		this.dtStart = dtStart;
+	}
+
+	public String getDtEnd() {
+		return dtEnd;
+	}
+	
+	public void setDtEnd(
+		String dtEnd) {
+		this.dtEnd = dtEnd;
+	}
+
+	public void setProcessStart(DateProvider provider) {
+		setDtStart(provider.nowAsString());                     		
+	}
+
+	public void setProcessEnd(DateProvider provider) {
+		setDtEnd(provider.nowAsString());
+	}
+	
 }

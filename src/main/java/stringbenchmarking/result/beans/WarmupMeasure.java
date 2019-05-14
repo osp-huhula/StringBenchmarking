@@ -1,12 +1,16 @@
 package stringbenchmarking.result.beans;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import stringbenchmarking.commons.DoubleConverter;
 import stringbenchmarking.commons.zuz.ZuzObjects;
 
-public class WarmupMeasure {
+public class WarmupMeasure
+	implements
+	Serializable {
 
 	private Integer index;
 	private String result;

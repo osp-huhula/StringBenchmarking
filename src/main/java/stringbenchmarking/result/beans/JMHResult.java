@@ -39,9 +39,5 @@ public interface JMHResult
 
 	Integer getForkTotal();
 
-	String getWarmupIterationMeasure();
-
-	String getIterationMeasure();
-
 	String getResultBenchmarkingAction();
 }
