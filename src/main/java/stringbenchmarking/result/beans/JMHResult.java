@@ -1,6 +1,10 @@
 package stringbenchmarking.result.beans;
 
-public interface JMHResult {
+import java.io.Serializable;
+
+public interface JMHResult
+	extends
+	Serializable {
 
 	String getJMHVersion();
 
@@ -34,10 +38,6 @@ public interface JMHResult {
 	Integer getForkIndex();
 
 	Integer getForkTotal();
-
-	String getWarmupIterationMeasure();
-
-	String getIterationMeasure();
 
 	String getResultBenchmarkingAction();
 }

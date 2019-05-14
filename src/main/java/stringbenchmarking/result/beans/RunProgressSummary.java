@@ -1,11 +1,15 @@
 package stringbenchmarking.result.beans;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import stringbenchmarking.commons.zuz.ZuzObjects;
 
-public class RunProgressSummary {
+public class RunProgressSummary
+	implements
+	Serializable {
 
 	private Double peComplete;
 	private String eta;
@@ -34,8 +38,8 @@ public class RunProgressSummary {
 		if (this == obj) {
 			return true;
 		}
-		if (obj instanceof WarmupMeasure) {
-			WarmupMeasure o = (WarmupMeasure) obj;
+		if (obj instanceof RunProgressSummary) {
+			RunProgressSummary o = (RunProgressSummary) obj;
 			return EqualsBuilder.reflectionEquals(this, o, true);
 		} else {
 			return false;

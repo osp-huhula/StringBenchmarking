@@ -24,4 +24,5 @@ public class WarmupIterationLineConverterTest {
 		Assert.assertEquals("2,647", result.getResult());
 		Assert.assertEquals(Double.valueOf("2.647"), result.getResultAsDouble(), 0);
 	}
+	
 }

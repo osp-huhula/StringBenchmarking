@@ -19,12 +19,12 @@ public final class BenchmarkResultLineConverter
 		result.setType(matcher.group(2));
 		result.setCount(matcher.group(3));
 		result.setScore(matcher.group(4));
-		result.setError(matcher.group(5));
-		result.setUnits(matcher.group(6));
+		result.setError(matcher.group(7));
+		result.setUnits(matcher.group(8));
 		return result;
 	}
 
 	private String regex() {
-		return "([a-zA-Z0-9\\.]+)[ |\\t]+(avgt)[ |\\t]+([0-9]+)[ |\\t]+([0-9]+,[0-9]+)[ |\\t]*[�|.]{1}[ |\\t]*([0-9]+,[0-9]+)[ |\\t]+(ns/op)";
+		return "([a-zA-Z0-9\\.]+)[ |\\t]+(avgt)[ |\\t]+([0-9]+)[ |\\t]+([0-9]+,[0-9]+)(([ |\\t]*[�|.]{1}[ |\\t]*)([0-9]+,[0-9]+)){0,1}[ |\\t]+(ns/op)";
 	}
 }

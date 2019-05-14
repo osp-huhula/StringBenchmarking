@@ -1,11 +1,15 @@
 package stringbenchmarking.result.beans;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import stringbenchmarking.commons.zuz.ZuzObjects;
 
-public class Measurement {
+public class Measurement
+	implements
+	Serializable {
 
 	private Integer iterations;
 	private Integer seconds;
@@ -34,8 +38,8 @@ public class Measurement {
 		if (this == obj) {
 			return true;
 		}
-		if (obj instanceof WarmupMeasure) {
-			WarmupMeasure o = (WarmupMeasure) obj;
+		if (obj instanceof Measurement) {
+			Measurement o = (Measurement) obj;
 			return EqualsBuilder.reflectionEquals(this, o, true);
 		} else {
 			return false;
