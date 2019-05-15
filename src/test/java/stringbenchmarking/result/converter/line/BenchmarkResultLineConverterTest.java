@@ -128,4 +128,16 @@ public class BenchmarkResultLineConverterTest {
 		Assert.assertNull(result.getError());
 		Assert.assertEquals("ns/op", result.getUnits());
 	}
+	
+	@Test
+	public void converter11() {
+		JMHBenchmarkResult result = converter.converter(
+				"StringBenchmarkWithConcate.example        thrpt       0,057          ops/ns");
+		Assert.assertEquals("StringBenchmarkWithConcate.example", result.getName());
+		Assert.assertEquals("thrpt", result.getType());
+		Assert.assertEquals("", result.getCount());
+		Assert.assertEquals("0,057", result.getScore());
+		Assert.assertNull(result.getError());
+		Assert.assertEquals("ops/ns", result.getUnits());
+	}
 }
