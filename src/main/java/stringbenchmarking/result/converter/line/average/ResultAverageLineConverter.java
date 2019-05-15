@@ -20,6 +20,10 @@ public class ResultAverageLineConverter {
 	}
 
 	private String regex() {
-		return "  ([0-9]+,[0-9]+) \\(([0-9]+.[0-9]+)%\\) ([0-9]+,[0-9]+) (ns/op) \\[Average\\]";
+		return "  ([0-9]+,[0-9]+) "
+			+ "\\(([0-9]+.[0-9]+)%\\) "
+			+ "([0-9]+,[0-9]+) "
+			+ "((ns/op)|(ops/ns)) "
+			+ "\\[Average\\]";
 	}
 }

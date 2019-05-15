@@ -18,6 +18,6 @@ public class BenchmarkResultOneLineConverter {
 	}
 
 	private String regex() {
-		return "  ([0-9]+,[0-9]+) (ns/op)";
+		return "  ([0-9]+,[0-9]+) ((ns/op)|(ops/ns))";
 	}
 }

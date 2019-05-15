@@ -21,8 +21,9 @@ public class ResultNormalDistributionLineConverterTest {
 	@Test
 	public void converter02() {
 		ResultForkDistribution result = converter.converter("  CI (99.9%): [? 0, 32,499] (assumes normal distribution)");
-		Assert.assertEquals("?", result.getPeConfidenceInterval());
-		Assert.assertEquals("0,267", result.getMin());
-		Assert.assertEquals("6,315", result.getMax());
+		Assert.assertEquals("99.9", result.getPeConfidenceInterval());
+		Assert.assertEquals("? 0", result.getMin());
+		Assert.assertEquals("32,499", result.getMax());
 	}
+	
 }
