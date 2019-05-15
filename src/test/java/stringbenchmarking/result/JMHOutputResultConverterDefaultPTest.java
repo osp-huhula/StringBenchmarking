@@ -35,7 +35,7 @@ public class JMHOutputResultConverterDefaultPTest {
 //		data.add(new Object[] {new File("benchmark_mode-All-single")});
 //		data.add(new Object[] {new File("benchmark_mode-Throughput-multiple")});
 		
-//		data.add(new Object[] {new File("benchmark_mode-AverageTime-multiple")});
+		data.add(new Object[] {new File("benchmark_mode-AverageTime-multiple")});
 		
 //		data.add(new Object[] {new File("benchmark_mode-SampleTime-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-SingleShotTime-multiple")});

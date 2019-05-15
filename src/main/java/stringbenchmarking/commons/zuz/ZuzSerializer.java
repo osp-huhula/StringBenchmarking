@@ -17,7 +17,7 @@ public class ZuzSerializer {
 
 	private static final AutoCloser AUTO_CLOSER = new AutoCloser();
 
-	public static <T extends Serializable> void serializing(
+	public static <T extends Serializable> File serializing(
 		T o,
 		File file) {
 		try {
@@ -26,6 +26,7 @@ public class ZuzSerializer {
 				ObjectOutputStream oStream = new ObjectOutputStream(ouput);
 				try {
 					oStream.writeObject(o);
+					return file;
 				} finally {
 					AUTO_CLOSER.executeClose(oStream);
 				}

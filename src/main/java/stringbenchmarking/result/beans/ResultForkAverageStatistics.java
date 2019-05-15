@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import stringbenchmarking.commons.zuz.ZuzObjects;
 
-public class ResultStatistics {
+public class ResultForkAverageStatistics {
 
 	private String min;
 	private String average;

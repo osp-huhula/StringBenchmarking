@@ -1,6 +1,7 @@
 package stringbenchmarking;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import stringbenchmarking.commons.exception.JMHRuntimeException;
 import stringbenchmarking.commons.exception.UnexpectedEOF;
 import stringbenchmarking.commons.zuz.ZuzFiles;
 import stringbenchmarking.commons.zuz.Zyz;
+import stringbenchmarking.io.JMHResultSerializer;
 import stringbenchmarking.result.beans.JMHResult;
 import stringbenchmarking.result.converter.JMHOutputResultConverter;
 import stringbenchmarking.result.converter.JMHOutputResultConverterDefault;
@@ -26,32 +28,44 @@ public class BenchmarkRunner {
 //		Options opt = opt();
 //		new org.openjdk.jmh.runner.Runner(opt);
 		org.openjdk.jmh.Main.main(args);
-		sendResultOutputFile(new File(parameters.get(parameters.indexOf("-o") 		+ 1)));
-		sendResultJSONFile(new File(parameters.get(parameters.indexOf("-rff") 		+ 1)));
+		File resultOutputFile = new File(parameters.get(parameters.indexOf("-o") 		+ 1));
+		File resultJSONFile = new File(parameters.get(parameters.indexOf("-rff") 		+ 1));
+		sendEMail(resultOutputFile, resultJSONFile);
 	}
 
-	private static void sendResultOutputFile(
-		File file) throws UnexpectedEOF {
-		ZuzFiles.info(file);
-		if (file.exists()) {
+	private static void sendEMail(
+		File resultOutput,
+		File resultJSON) {
+		ZuzFiles.info(resultOutput);
+		ZuzFiles.info(resultJSON);
+		
+		List<File> files = new ArrayList<File>();
+		files.add(resultOutput);
+		files.add(resultJSON);
+		
+		
+		if (resultOutput.exists()) {
 			Zyz.out("converting");
-			JMHResult result = CONVERTER.converter(file);
+			JMHResult result = converter(resultOutput);
 			Zyz.out("serializing");
-//			JMHResultSerializer.serializing(result, new File(file.getPath() + ".ser"));
+			byte[] serialized = JMHResultSerializer.serializing(result);
+			
 		} else {
-			System.err.println("not exist.");
+			throw new JMHRuntimeException("File do not exist : " + resultOutput.getPath());
+		}
+		
+		//sendEmail(resultJSON, resultJSON, serialized);
+	}
+
+	private static JMHResult converter(
+		File resultOutput) {
+		try {
+			return CONVERTER.converter(resultOutput);
+		} catch (UnexpectedEOF e) {
+			throw new JMHRuntimeException(e);
 		}
 	}
 	
-	private static void sendResultJSONFile(
-		File file) {
-		if (file.exists()) {
-		} else {
-			System.err.println("not exist.");
-		}
-	}
-
-
 	/**
 	 * TODO what to do with that
 	 */

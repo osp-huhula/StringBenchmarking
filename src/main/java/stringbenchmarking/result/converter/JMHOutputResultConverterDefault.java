@@ -1,6 +1,8 @@
 package stringbenchmarking.result.converter;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -10,13 +12,15 @@ import stringbenchmarking.commons.exception.CustomEOFException;
 import stringbenchmarking.commons.exception.JMHRuntimeException;
 import stringbenchmarking.commons.exception.UnexpectedEOF;
 import stringbenchmarking.commons.io.ZuzFileReader;
-import stringbenchmarking.commons.zuz.Zyz;
 import stringbenchmarking.enums.BenchmarkModeEnum;
+import stringbenchmarking.result.beans.BenchmarkResult;
+import stringbenchmarking.result.beans.BenchmarkResultMany;
 import stringbenchmarking.result.beans.Fork;
+import stringbenchmarking.result.beans.JMHBenchmark;
 import stringbenchmarking.result.beans.JMHResult;
 import stringbenchmarking.result.beans.JMHResultImp;
 import stringbenchmarking.result.beans.Measurement;
-import stringbenchmarking.result.beans.ResultFork;
+import stringbenchmarking.result.beans.RunProgressSummary;
 import stringbenchmarking.result.beans.VirtualMachine;
 import stringbenchmarking.result.beans.Warmup;
 import stringbenchmarking.result.converter.line.BenchmarkActionLineConverter;
@@ -35,8 +39,9 @@ import stringbenchmarking.result.converter.line.VMOptionsLineConverter;
 import stringbenchmarking.result.converter.line.VMVersionLineConverter;
 import stringbenchmarking.result.converter.line.WarmupIterationLineConverter;
 import stringbenchmarking.result.converter.line.WarmupLineConverter;
+import stringbenchmarking.result.converter.line.average.BenchmarkResultOneLineConverter;
 import stringbenchmarking.result.converter.line.average.ResultAverageLineConverter;
-import stringbenchmarking.result.converter.line.average.ResultSingleLineConverter;
+import stringbenchmarking.result.converter.line.average.ResultNormalDistributionLineConverter;
 import stringbenchmarking.result.converter.line.average.ResultStatisticsLineConverter;
 
 public final class JMHOutputResultConverterDefault
@@ -56,8 +61,9 @@ public final class JMHOutputResultConverterDefault
 	private final WarmupIterationLineConverter warmupIterationLineConverter = new WarmupIterationLineConverter();
 	private final IterationLineConverter iterationLineConverter = new IterationLineConverter();
 	private final ResultAverageLineConverter resultAverageLineConverter = new ResultAverageLineConverter();
-	private final ResultSingleLineConverter resultSingleLineConverter = new ResultSingleLineConverter();
+	private final BenchmarkResultOneLineConverter resultSingleLineConverter = new BenchmarkResultOneLineConverter();
 	private final ResultStatisticsLineConverter resultStatisticsLineConverter = new ResultStatisticsLineConverter();
+	private final ResultNormalDistributionLineConverter resultDistributionLineConverter = new ResultNormalDistributionLineConverter();
 	private final DateProvider dateProvider;
 	
 	public JMHOutputResultConverterDefault() {
@@ -103,7 +109,7 @@ public final class JMHOutputResultConverterDefault
 		try {
 			while (values.currentIndex() == -1 || !values.preview().startsWith("# Run complete") ) {
 				values.nextNonBlankLine();
-				converterBenchmark(result, values);
+				result.add(converterBenchmark(values));
 			}
 			result.setTimeTotal(new JMHResultTotalTimeLineConverter().converter(values.next()));
 			values.nextNonBlankLine();
@@ -111,7 +117,6 @@ public final class JMHOutputResultConverterDefault
 			values.nextNonBlankLine();
 			System.out.println("----");
 			while (values.notEOF() && !StringUtils.isBlank(values.preview())) {
-				Zyz.err(values.preview());
 				result.add(new BenchmarkResultLineConverter().converter(values.next()));
 			}
 			result.setProcessEnd(dateProvider);
@@ -119,19 +124,20 @@ public final class JMHOutputResultConverterDefault
 		} catch (CustomEOFException e) {
 			throw new UnexpectedEOF(result, e);
 		} catch (Exception e) {
+			int currentIndex = values.currentIndex() + 1;
+			String current = values.current();
 			String message = String.format("Could not convert line %s : [%s]",
-				values.currentIndex() + 1, values.current());
+				currentIndex, current);
 			System.err.println(message);
 			System.err.println(e.getMessage());
 			throw new JMHRuntimeException(message, e);
 		}
 	}
 
-	private void converterBenchmark(
-		JMHResultImp result,
+	private JMHBenchmark converterBenchmark(
 		StringValues values)
 		throws CustomEOFException {
-		
+		JMHBenchmark result = new JMHBenchmark();
 		// HEADER
 		result.setJMHVersion(jmhVersionLineConverter.converter(values.next()).toString());
 		VirtualMachine virtualMachine = new VirtualMachine();
@@ -150,51 +156,67 @@ public final class JMHOutputResultConverterDefault
 		result.setWarmup(warmup);
 		result.setBenchmarkingAction(benchmarkActionLineConverter.converter(values.next()));
 		values.blankLine();
-		// PROCESS
-		result
-			.setRunProgressSummary(runProgressSummaryLineConverter.converter(values.next()));
+		Integer totalWarmup = warmup.getIterations();
+		Integer totalMeasurement = measurement.getIterations();
+		List<Fork> forks = collectFork(values, totalWarmup, totalMeasurement);
+		result.setForks(forks);
+		result.add(benchmarkResult(forks.size(), values));
+		values.nextNonBlankLine();
+		return result;
+	}
+
+	private List<Fork> collectFork(
+		StringValues values,
+		Integer totalWarmup,
+		Integer totalMeasurement)
+		throws CustomEOFException {
+		List<Fork> result = new ArrayList<Fork>();
+		Fork firstFork = fork(values, totalWarmup, totalMeasurement);
+		result.add(firstFork);
+		values.nextNonBlankLine();
+		int countFork = firstFork.getTotal() - 1;
+		while (countFork > 0) {
+			Fork moreFork = fork(values, totalWarmup, totalMeasurement);
+			result.add(moreFork);
+			countFork--;
+		}
+		System.err.println(values.next());
+		values.nextNonBlankLine();
+		return result;
+	}
+
+	private Fork fork(
+		StringValues values,
+		Integer totalWarmup,
+		Integer totalMeasurement)
+		throws CustomEOFException {
+		RunProgressSummary progressSummary = runProgressSummaryLineConverter.converter(values.next());
 		Fork fork = new ForkLineConverter().converter(values.next());
-		result.setFork(fork);
-		int countWarmup = Integer.valueOf(warmup.getIterations());
+		fork.setSummary(progressSummary);
+		int countWarmup = totalWarmup;
 		while (countWarmup > 0) {
-			result.addWarmupMeasure(warmupIterationLineConverter.converter(values.next()));
+			fork.addWarmupMeasure(warmupIterationLineConverter.converter(values.next()));
 			countWarmup--;
 		}
-		int countMeasurement = Integer.valueOf(measurement.getIterations());
+		int countMeasurement = totalMeasurement;
 		while (countMeasurement > 0) {
-			result.addIterationMeasure(iterationLineConverter.converter(values.next()));
+			fork.addIterationMeasure(iterationLineConverter.converter(values.next()));
 			countMeasurement--;
 		}
 		values.nextNonBlankLine();
-		int countFork = fork.getTotal() - 1;
-		while (countFork > 0) {
-			runProgressSummaryLineConverter.converter(values.next());
-			new ForkLineConverter().converter(values.next());
-			int countForkWarmup = Integer.valueOf(warmup.getIterations());
-			while (countForkWarmup > 0) {
-				result
-					.addWarmupMeasure(warmupIterationLineConverter.converter(values.next()));
-				countForkWarmup--;
-			}
-			int countForkMeasurement = Integer.valueOf(measurement.getIterations());
-			while (countForkMeasurement > 0) {
-				result.addIterationMeasure(iterationLineConverter.converter(values.next()));
-				countForkMeasurement--;
-			}
-			countFork--;
-			values.nextNonBlankLine();
-		}
-		System.err.println(values.next());
-		ResultFork resultAverage = new ResultFork();
-		if (fork.getTotal() == 1) {
-			resultAverage.setSingleResult(resultSingleLineConverter.converter(values.next()));
+		return fork;
+	}
+
+	private BenchmarkResult benchmarkResult(int totalFork, StringValues values) throws CustomEOFException {
+		if (totalFork == 1) {
+			return resultSingleLineConverter.converter(values.next());
 		} else {
-			resultAverage.setAverage(resultAverageLineConverter.converter(values.next()));
-			resultAverage.setAverageStatistics(resultStatisticsLineConverter.converter(values.next()));
-			System.err.println(values.next());// TODO
-			// confidence interval
+			BenchmarkResultMany result = new BenchmarkResultMany();
+			result.setInformation(resultAverageLineConverter.converter(values.next()));
+			result.setStatistics(resultStatisticsLineConverter.converter(values.next()));
+			result.setDistribution(resultDistributionLineConverter.converter(values.next()));
+			return result;
 		}
-		values.nextNonBlankLine();
 	}
 
 	class StringValues {
@@ -243,13 +265,15 @@ public final class JMHOutputResultConverterDefault
 		public void blankLine()
 			throws CustomEOFException {
 			if (StringUtils.isBlank(next())) {
-				System.out.println("- blank line");
+				// next
+				// Zyz.out("- blank line");
 			} else {
 				throw new IllegalArgumentException("Blank line expected here.");
 			}
 		}
-		
-		public void nextNonBlankLine() throws CustomEOFException {
+
+		public void nextNonBlankLine()
+			throws CustomEOFException {
 			while (StringUtils.isBlank(preview())) {
 				blankLine();
 			}

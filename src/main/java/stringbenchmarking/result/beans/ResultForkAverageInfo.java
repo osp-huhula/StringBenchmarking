@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import stringbenchmarking.commons.zuz.ZuzObjects;
 
-public class ResultAverage {
+public class ResultForkAverageInfo {
 
 	private String score;
 	private String percent;
@@ -54,8 +54,8 @@ public class ResultAverage {
 		if (this == obj) {
 			return true;
 		}
-		if (obj instanceof WarmupMeasure) {
-			WarmupMeasure o = (WarmupMeasure) obj;
+		if (obj instanceof ResultForkAverageInfo) {
+			ResultForkAverageInfo o = (ResultForkAverageInfo) obj;
 			return EqualsBuilder.reflectionEquals(this, o, true);
 		} else {
 			return false;
