@@ -27,20 +27,19 @@ public class JMHOutputResultConverterDefaultPTest {
 	@Parameters(name= "{index}: converting file[{0}]={1}")
 	public static Iterable<Object[]> data() {
 		ArrayList<Object[]> data = new ArrayList<Object[]>();
-//		data.add(new Object[] {new File("benchmark_mode-Throughput-single")});
+		//single
+		data.add(new Object[] {new File("benchmark_mode-Throughput-single")});
 		data.add(new Object[] {new File("benchmark_mode-AverageTime-single")});
 //		data.add(new Object[] {new File("benchmark_mode-SampleTime-single")});
 //		data.add(new Object[] {new File("benchmark_mode-SingleShotTime-single")});
 //		data.add(new Object[] {new File("benchmark_mode-All-single")});
+		//multiples
 //		data.add(new Object[] {new File("benchmark_mode-Throughput-multiple")});
-		
 		data.add(new Object[] {new File("benchmark_mode-AverageTime-multiple")});
-		
 //		data.add(new Object[] {new File("benchmark_mode-SampleTime-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-SingleShotTime-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-All-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-multiple-different")});
-		
 		data.add(new Object[] {new File("JMH-ouput-20190424.2335")});
 		return data;
 	}
