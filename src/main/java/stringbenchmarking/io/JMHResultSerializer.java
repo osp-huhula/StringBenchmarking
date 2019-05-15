@@ -1,6 +1,7 @@
 package stringbenchmarking.io;
 
 import stringbenchmarking.commons.zuz.ZuzSerializer;
+import stringbenchmarking.result.beans.JMHResult;
 import stringbenchmarking.result.beans.JMHResultImp;
 
 public class JMHResultSerializer {
@@ -9,9 +10,15 @@ public class JMHResultSerializer {
 		JMHResultImp result) {
 		return ZuzSerializer.serializing(result);		
 	}
+	
+	public static byte[] serializing(
+		JMHResult result) {
+		return ZuzSerializer.serializing(result);		
+	}
 
 	public static JMHResultImp deserialization(
 		byte[] value) {
 		return ZuzSerializer.deserialization(value);
 	}
+
 }

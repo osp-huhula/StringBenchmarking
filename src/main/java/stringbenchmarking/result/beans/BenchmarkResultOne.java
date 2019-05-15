@@ -5,24 +5,29 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import stringbenchmarking.commons.zuz.ZuzObjects;
 
-public class ResultFork {
+public class BenchmarkResultOne
+	implements
+	BenchmarkResult {
 
-	public void setAverage(
-		ResultAverage converter) {
-		// TODO Auto-generated method stub
-		
+	private String score;
+	private String unit;
+
+	public String getScore() {
+		return score;
 	}
 
-	public void setAverageStatistics(
-		ResultStatistics converter) {
-		// TODO Auto-generated method stub
-		
+	public void setScore(
+		String score) {
+		this.score = score;
 	}
-	
-	public void setSingleResult(
-		ResultForkSingle converter) {
-		// TODO Auto-generated method stub
-		
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(
+		String unit) {
+		this.unit = unit;
 	}
 	
 	@Override
@@ -31,8 +36,8 @@ public class ResultFork {
 		if (this == obj) {
 			return true;
 		}
-		if (obj instanceof WarmupMeasure) {
-			WarmupMeasure o = (WarmupMeasure) obj;
+		if (getClass().isInstance(obj)) {
+			BenchmarkResultOne o = (BenchmarkResultOne) obj;
 			return EqualsBuilder.reflectionEquals(this, o, true);
 		} else {
 			return false;
@@ -48,5 +53,4 @@ public class ResultFork {
 	public String toString() {
 		return ZuzObjects.reflectionToString(this);
 	}
-
 }

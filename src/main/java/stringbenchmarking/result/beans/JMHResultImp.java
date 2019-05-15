@@ -15,170 +15,79 @@ public class JMHResultImp
 
 	private String dtStart;
 	private String dtEnd;
-	
-	private String jmhVersion;
-	private VirtualMachine virtualMachine;
-	private Warmup warmup;
-	private Measurement measurement;
-	private String timeout;
-	private String threads;
-	private String benchmarkMode;
-	private String benchmarkingAction;
-	private RunProgressSummary runProgressSummary;
-	private Fork fork;
-	private String resultBenchmarkingAction;
 	private String timeTotal;
-	
-	private List<WarmupMeasure> warmupMeasures;
-	private List<IterationMeasure> iterationMeasures;
+	private List<JMHBenchmark> benchmarks;
 	private List<JMHBenchmarkResult> benchmarkResults;
-	
-	@Override
-	public String getJMHVersion() {
-		return jmhVersion;
+
+	public String getTimeTotal() {
+		return timeTotal;
 	}
 
-	public void setJMHVersion(
-		String jmhVersion) {
-		this.jmhVersion = jmhVersion;
+	public void setTimeTotal(
+		String timeTotal) {
+		this.timeTotal = timeTotal;
 	}
 
-	public VirtualMachine getVirtualMachine() {
-		return virtualMachine;
+	public String getDtStart() {
+		return dtStart;
 	}
 
-	public void setVirtualMachine(
-		VirtualMachine virtualMachine) {
-		this.virtualMachine = virtualMachine;
+	public void setDtStart(
+		String dtStart) {
+		this.dtStart = dtStart;
 	}
 
-	@Override
-	public String getVMVersion() {
-		return virtualMachine.getVMOptions();
+	public String getDtEnd() {
+		return dtEnd;
 	}
 
-	@Override
-	public String getVMInvoker() {
-		if (virtualMachine.getVMInvoker() == null) {
-			return null;
-		} else {
-			return virtualMachine.getVMInvoker().getPath();
+	public void setDtEnd(
+		String dtEnd) {
+		this.dtEnd = dtEnd;
+	}
+
+	public void setProcessStart(
+		DateProvider provider) {
+		setDtStart(provider.nowAsString());
+	}
+
+	public void setProcessEnd(
+		DateProvider provider) {
+		setDtEnd(provider.nowAsString());
+	}
+
+	public boolean add(
+		JMHBenchmark element) {
+		if (getBenchmarks() == null) {
+			setBenchmarks(new ArrayList<JMHBenchmark>());
 		}
+		return getBenchmarks().add(element);
 	}
 
-	@Override
-	public String getVMOptions() {
-		return virtualMachine.getVMOptions();
+	public List<JMHBenchmark> getBenchmarks() {
+		return benchmarks;
 	}
 
-	public void setWarmup(
-		Warmup warmup) {
-		this.warmup = warmup;
+	public void setBenchmarks(
+		List<JMHBenchmark> benchmarks) {
+		this.benchmarks = benchmarks;
 	}
 
-	@Override
-	public String getWarmupInteractions() {
-		return toString(warmup.getIterations());
+	public List<JMHBenchmarkResult> getBenchmarkResults() {
+		return benchmarkResults;
 	}
 
-	@Override
-	public String getWarmupTime() {
-		return warmup.getUnit();
+	public void setBenchmarkResults(
+		List<JMHBenchmarkResult> benchmarkResults) {
+		this.benchmarkResults = benchmarkResults;
 	}
 
-	public void setMeasurement(
-		Measurement measurement) {
-		this.measurement = measurement;
-	}
-
-	@Override
-	public String getMeasurementInteractions() {
-		return toString(measurement.getSeconds());
-	}
-
-	@Override
-	public String getMeasurementTime() {
-		return toString(measurement.getSeconds());
-	}
-
-	@Override
-	public String getTimeout() {
-		return timeout;
-	}
-
-	public void setTimeout(
-		String timeout) {
-		this.timeout = timeout;
-	}
-
-	@Override
-	public String getThreads() {
-		return threads;
-	}
-
-	public void setThreads(
-		String threads) {
-		this.threads = threads;
-	}
-
-	@Override
-	public String getBenchmarkMode() {
-		return benchmarkMode;
-	}
-
-	public void setBenchmarkMode(
-		String benchmarkMode) {
-		this.benchmarkMode = benchmarkMode;
-	}
-
-	@Override
-	public String getBenchmarkingAction() {
-		return benchmarkingAction;
-	}
-
-	public void setBenchmarkingAction(
-		String benchmarkingAction) {
-		this.benchmarkingAction = benchmarkingAction;
-	}
-
-	public void setRunProgressSummary(
-		RunProgressSummary runProgressSummary) {
-		this.runProgressSummary = runProgressSummary;
-	}
-
-	@Override
-	public Double getProgressPe() {
-		return runProgressSummary.getPeComplete();
-	}
-
-	@Override
-	public String getProgressETA() {
-		return runProgressSummary.getEta();
-	}
-
-	public void setFork(
-		Fork fork) {
-		this.fork = fork;
-	}
-
-	@Override
-	public Integer getForkIndex() {
-		return fork.getIndex();
-	}
-
-	@Override
-	public Integer getForkTotal() {
-		return fork.getTotal();
-	}
-
-	@Override
-	public String getResultBenchmarkingAction() {
-		return resultBenchmarkingAction;
-	}
-
-	public void setResultBenchmarkingAction(
-		String resultBenchmarkingAction) {
-		this.resultBenchmarkingAction = resultBenchmarkingAction;
+	public boolean add(
+		JMHBenchmarkResult element) {
+		if (getBenchmarkResults() == null) {
+			setBenchmarkResults(new ArrayList<JMHBenchmarkResult>());
+		}
+		return getBenchmarkResults().add(element);
 	}
 
 	@Override
@@ -195,38 +104,6 @@ public class JMHResultImp
 		}
 	}
 
-//	@Override
-//	public final boolean equals(
-//		Object obj) {
-//		if (this == obj) {
-//			return true;
-//		}
-//		if (obj instanceof JMHResultImp) {
-//			JMHResultImp o = (JMHResultImp) obj;
-//			return new EqualsBuilder()
-//					.append(dtStart, o.dtStart)
-//					.append(dtEnd, o.dtEnd)
-//					.append(jmhVersion, o.jmhVersion)
-//					.append(virtualMachine, o.virtualMachine)
-//					.append(warmup, o.warmup)
-//					.append(measurement, o.measurement)
-//					.append(timeout, o.timeout)
-//					.append(threads, o.threads)
-//					.append(benchmarkMode, o.benchmarkMode)
-//					.append(benchmarkingAction, o.benchmarkingAction)
-//					.append(runProgressSummary, o.runProgressSummary)
-//					.append(fork, o.fork)
-//					.append(resultBenchmarkingAction, o.resultBenchmarkingAction)
-//					.append(timeTotal, o.timeTotal)
-//					.append(warmupMeasures, o.warmupMeasures)
-//					.append(iterationMeasures, o.iterationMeasures)
-//					.append(benchmarkResults, o.benchmarkResults)
-//					.isEquals();
-//		} else {
-//			return false;
-//		}
-//	}
-	
 	@Override
 	public final int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this, false);
@@ -236,100 +113,4 @@ public class JMHResultImp
 	public String toString() {
 		return ZuzObjects.reflectionToString(this);
 	}
-
-	private String toString(
-		Number number) {
-		if (number == null) {
-			return "null";
-		} else {
-			return number.toString();
-		}
-	}
-
-	public List<WarmupMeasure> getWarmupMeasures() {
-		return warmupMeasures;
-	}
-
-	public void setWarmupMeasures(
-		List<WarmupMeasure> warmupMeasures) {
-		this.warmupMeasures = warmupMeasures;
-	}
-
-	public List<IterationMeasure> getIterationMeasures() {
-		return iterationMeasures;
-	}
-
-	public void setIterationMeasures(
-		List<IterationMeasure> iterationMeasures) {
-		this.iterationMeasures = iterationMeasures;
-	}
-
-	public void addWarmupMeasure(
-		WarmupMeasure warmupMeasure) {
-		if(getWarmupMeasures() == null) {
-			setWarmupMeasures(new ArrayList<WarmupMeasure>());
-		}
-		getWarmupMeasures().add(warmupMeasure);
-	}
-
-	public void addIterationMeasure(
-		IterationMeasure ierationMeasure) {
-		if(getIterationMeasures() == null) {
-			setIterationMeasures(new ArrayList<IterationMeasure>());
-		}
-		getIterationMeasures().add(ierationMeasure);
-	}
-	
-	public String getTimeTotal() {
-		return timeTotal;
-	}
-
-	public void setTimeTotal(
-		String timeTotal) {
-		this.timeTotal = timeTotal;
-	}
-	
-	public List<JMHBenchmarkResult> getBenchmarkResults() {
-		return benchmarkResults;
-	}
-	
-	public void setBenchmarkResults(
-		List<JMHBenchmarkResult> benchmarkResults) {
-		this.benchmarkResults = benchmarkResults;
-	}
-
-	public void add(
-		JMHBenchmarkResult element) {
-		if(getBenchmarkResults() == null) {
-			setBenchmarkResults(new ArrayList<JMHBenchmarkResult>());
-		}
-		getBenchmarkResults().add(element);
-	}
-	
-	public String getDtStart() {
-		return dtStart;
-	}
-
-	public void setDtStart(
-		String dtStart) {
-		this.dtStart = dtStart;
-	}
-
-	public String getDtEnd() {
-		return dtEnd;
-	}
-	
-	public void setDtEnd(
-		String dtEnd) {
-		this.dtEnd = dtEnd;
-	}
-
-	public void setProcessStart(DateProvider provider) {
-		setDtStart(provider.nowAsString());                     		
-	}
-
-	public void setProcessEnd(DateProvider provider) {
-		setDtEnd(provider.nowAsString());
-	}
-	
 }

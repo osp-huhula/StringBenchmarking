@@ -3,15 +3,15 @@ package stringbenchmarking.result.converter.line.average;
 import java.util.regex.Matcher;
 
 import stringbenchmarking.commons.CommonsMatcher;
-import stringbenchmarking.result.beans.ResultStatistics;
+import stringbenchmarking.result.beans.ResultForkAverageStatistics;
 
 public class ResultStatisticsLineConverter {
 
-	public ResultStatistics converter(
+	public ResultForkAverageStatistics converter(
 		String content) {
 		String regex = regex();
 		Matcher matcher = CommonsMatcher.matcher(regex, content.replaceAll("[^\\x20-\\x7e]", ""));
-		ResultStatistics result = new ResultStatistics();
+		ResultForkAverageStatistics result = new ResultForkAverageStatistics();
 		result.setMin(matcher.group(1));
 		result.setAverage(matcher.group(2));
 		result.setMax(matcher.group(3));
