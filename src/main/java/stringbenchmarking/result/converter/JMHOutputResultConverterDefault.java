@@ -152,7 +152,7 @@ public final class JMHOutputResultConverterDefault
 		result.setThreads(threadLineConverter.converter(values.next()).toString());
 		BenchmarkModeEnum mode = benchmarkModeLineConverter.converter(values.next());
 		result.setBenchmarkMode(mode.getValue());
-		Warmup warmup = new WarmupLineConverter(mode).converter(lineWarmup);
+		Warmup warmup = new WarmupLineConverter().converter(lineWarmup);
 		result.setWarmup(warmup);
 		result.setBenchmarkingAction(benchmarkActionLineConverter.converter(values.next()));
 		values.blankLine();
