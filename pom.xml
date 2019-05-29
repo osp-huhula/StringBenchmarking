@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.osp-huhula</groupId>
-	<artifactId>string-benchmarking </artifactId>
+	<artifactId>string-benchmarking</artifactId>
 	<packaging>jar</packaging>
 	<name>String Benchmarking [${project.version}]</name>
 	<version>J6u45.1.1</version>
@@ -23,8 +23,8 @@
 	</licenses>
 	<scm>
 		<url>https://github.com/osp-huhula/StringBenchmarking.git</url>
-		<connection>scm:git:https://github.com/osp-huhula/StringBenchmarking.git.git</connection>
-		<developerConnection>scm:git:https://github.com/osp-huhula/StringBenchmarking.git.git</developerConnection>
+		<connection>scm:git:https://github.com/osp-huhula/StringBenchmarking.git</connection>
+		<developerConnection>scm:git:https://github.com/osp-huhula/StringBenchmarking.git</developerConnection>
 		<tag>J6u45.1.1</tag>
 	</scm>
 	<developers>

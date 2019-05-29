@@ -20,4 +20,10 @@ public class BenchmarkModeLineConverterTest {
 		BenchmarkModeEnum result = converter.converter("# Benchmark mode: Average time, time/op");
 		Assert.assertEquals(BenchmarkModeEnum.AVERAGE_TIME, result);
 	}
+	
+	@Test
+	public void converterSAMPLING_TIME() {
+		BenchmarkModeEnum result = converter.converter("# Benchmark mode: Sampling time");
+		Assert.assertEquals(BenchmarkModeEnum.SAMPLING_TIME, result);
+	}
 }
