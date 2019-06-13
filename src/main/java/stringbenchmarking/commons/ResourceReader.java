@@ -115,7 +115,7 @@ public class ResourceReader {
 		return path;//.replaceAll(SLASH, DOUBLE_BACKSLASH);
 	}
 
-	private String readResource(
+	public String readResource(
 		String path,
 		InputStream inputStream) {
 		if (inputStream == null) {
@@ -132,7 +132,7 @@ public class ResourceReader {
 		}
 	}
 
-	private String readResource(
+	public String readResource(
 		String path,
 		URL resource) {
 		if (resource == null) {
