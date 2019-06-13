@@ -80,17 +80,23 @@ public class JMHOutputResultConverterDefaultPTest {
 		try { result = reader.readFile(path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
 		try { result = reader.readFile(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
 		try { result = reader.readFile(Thread.currentThread(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader.readFile(ClassLoader.getSystemClassLoader(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
 		try { result = reader.readFileAsStream(path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
 		try { result = reader.readFileAsStream(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
 		try { result = reader.readFileAsStream(Thread.currentThread(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader.readFileAsStream(ClassLoader.getSystemClassLoader(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
 		try { result = reader.readResource(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
 		try { result = reader.readResourceAsStream(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader.readResource(path, ClassLoader.getSystemResource(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader.readResource(path, ClassLoader.getSystemResourceAsStream(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
 		return result;
 	}
 
 	private void print(
 		Exception e) {
-		System.err.println(e.getStackTrace()[0] + e.getMessage());
+		if(!"worked".equals(e.getMessage())) {
+			System.err.println(e.getStackTrace()[0] + e.getMessage());
+		}
 	}
 
 	private String asString(
