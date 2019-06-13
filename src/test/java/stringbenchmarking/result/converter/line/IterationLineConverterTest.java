@@ -1,6 +1,7 @@
 package stringbenchmarking.result.converter.line;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import stringbenchmarking.result.beans.IterationMeasure;
@@ -16,7 +17,7 @@ public class IterationLineConverterTest {
 		Assert.assertEquals("0,350", result.getResult());
 		Assert.assertEquals(Double.valueOf("0.350"), result.getResultAsDouble());
 	}
-	
+
 
 	@Test
 	public void converterAveragetime() {
@@ -25,7 +26,8 @@ public class IterationLineConverterTest {
 		Assert.assertEquals("3,574", result.getResult());
 		Assert.assertEquals(Double.valueOf("3.574"), result.getResultAsDouble(), 0);
 	}
-	
+
+	@Ignore
 	@Test
 	public void converter01() {
 		IterationMeasure result = converter.converter("Iteration   1: 203,611 �(99.9%) 179,010 ns/op");
