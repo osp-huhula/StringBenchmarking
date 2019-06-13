@@ -57,7 +57,7 @@ public class ResourceReader {
 	public String readFile(
 		Class<?> clazz,
 		String path) {
-		return readFileAsStream(clazz.getClassLoader(), new File(path));
+		return readFile(clazz.getClassLoader(), new File(path));
 	}
 
 	public String readFile(
