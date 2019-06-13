@@ -18,6 +18,8 @@ public final class BenchmarkModeLineConverter
 	}
 
 	private String regex() {
-		return "# Benchmark mode: ([a-zA-Z ]+), ((ops/time)|(time/op))";
+		return "# Benchmark mode: "
+			+ "([a-zA-Z ]+)"
+			+ "(, ((ops/time)|(time/op))){0,1}";
 	}
 }

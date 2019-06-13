@@ -1,0 +1,21 @@
+node {	
+	def MVN_HOME = tool 'maven-3.2.5';
+	echo "MVN_HOME = ${MVN_HOME}"
+	def JAVA_HOME = tool 'Oracle JDK6';
+	echo "JAVA_HOME = ${JAVA_HOME}"
+	stage('cleaning'){
+	    cleanWs();
+	}
+	stage('Cheking out (GIT)') {
+		checkout scm
+	}
+	stage('build') {
+		if (isUnix()) {
+			sh "'${MVN_HOME}/bin/mvn' clean compile install  "
+		} else {
+			bat(/"${mvnHome}\bin\mvn" clean compile install /)
+		}
+	}
+	stage('Release') {
+	}
+}

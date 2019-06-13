@@ -13,7 +13,10 @@ public class WarmupMeasure
 	Serializable {
 
 	private Integer index;
-	private String result;
+	private String score;
+	private String pe;
+	private String scoreError;
+	private String unit;
 
 	public Integer getIndex() {
 		return index;
@@ -24,19 +27,37 @@ public class WarmupMeasure
 		this.index = index;
 	}
 
-	public String getResult() {
-		return result;
+	public String getScore() {
+		return score;
+	}
+	
+	public Double getScoreAsDouble() {
+		return DoubleConverter.toDouble(score);
 	}
 
-	public void setResult(
-		String result) {
-		this.result = result;
+	public void setScore(
+		String score) {
+		this.score = score;
 	}
-	
-	public Double getResultAsDouble() {
-		return DoubleConverter.toDouble(result);
+
+	public String getScoreError() {
+		return scoreError;
 	}
-	
+
+	public void setScoreError(
+		String scoreError) {
+		this.scoreError = scoreError;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(
+		String unit) {
+		this.unit = unit;
+	}
+
 	@Override
 	public boolean equals(
 		Object obj) {

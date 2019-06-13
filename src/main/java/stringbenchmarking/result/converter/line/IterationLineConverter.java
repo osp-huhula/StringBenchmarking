@@ -3,6 +3,7 @@ package stringbenchmarking.result.converter.line;
 import java.util.regex.Matcher;
 
 import stringbenchmarking.commons.CommonsMatcher;
+import stringbenchmarking.commons.zuz.ZuzString;
 import stringbenchmarking.result.beans.IterationMeasure;
 
 public final class IterationLineConverter
@@ -13,7 +14,7 @@ public final class IterationLineConverter
 	public IterationMeasure converter(
 		String content) {
 		String regex = regex();
-		Matcher matcher = CommonsMatcher.matcher(regex, content);
+		Matcher matcher = CommonsMatcher.matcher(regex, ZuzString.normalizeASCII(content) );
 		IterationMeasure result = new IterationMeasure();
 		result.setIndex(Integer.valueOf(matcher.group(1)));
 		result.setResult(matcher.group(2));
@@ -21,6 +22,6 @@ public final class IterationLineConverter
 	}
 
 	private String regex() {
-		return "Iteration[ ]+([0-9]+): ([0-9]+[,|\\.][0-9]+) ((ops/ns)|(ns/op))";
+		return "Iteration[ ]+([0-9]+):[ ]+([0-9]+[,|\\.][0-9]+) ((ops/ns)|(ns/op))";
 	}
 }
