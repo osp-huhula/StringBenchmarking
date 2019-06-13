@@ -9,6 +9,9 @@ import org.apache.commons.io.IOUtils;
 
 public class ResourceReader {
 
+	private static final String DOULBE_BACKSLASH = "\\\\";
+	private static final String SLASH = "/";
+
 	public String readFileAsStream(
 		String path) {
 		return readFile(new File(path));
@@ -82,7 +85,39 @@ public class ResourceReader {
 	public String readFileAsStream(
 		ClassLoader loader,
 		String path) {
-		InputStream inputStream = loader.getResourceAsStream(path.replaceAll("/", "\\\\"));
+		InputStream inputStream = loader.getResourceAsStream(replaceAllSlash(path));
+		return readResource(path, inputStream);
+	}
+
+	public String readFile(
+		ClassLoader loader,
+		String path) {
+		URL resource = loader.getResource(replaceAllSlash(path));
+		return readResource(path, resource);
+	}
+
+	public String readResourceAsStream(
+		Class<?> clazz,
+		String path) {
+		InputStream inputStream = clazz.getResourceAsStream(replaceAllSlash(path));
+		return readResource(path, inputStream);
+	}
+
+	public String readResource(
+		Class<?> clazz,
+		String path) {
+		URL resource = clazz.getResource(replaceAllSlash(path));
+		return readResource(path, resource);
+	}
+
+	private String replaceAllSlash(
+		String path) {
+		return path.replaceAll(SLASH, DOULBE_BACKSLASH);
+	}
+
+	private String readResource(
+		String path,
+		InputStream inputStream) {
 		if (inputStream == null) {
 			throw new RuntimeException("Could not load file: ".concat(path));
 		}
@@ -97,10 +132,9 @@ public class ResourceReader {
 		}
 	}
 
-	public String readFile(
-		ClassLoader loader,
-		String path) {
-		URL resource = loader.getResource(path.replaceAll("/", "\\\\"));
+	private String readResource(
+		String path,
+		URL resource) {
 		if (resource == null) {
 			throw new RuntimeException("Could not load file: ".concat(path));
 		}
