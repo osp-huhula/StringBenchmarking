@@ -9,7 +9,7 @@ import org.apache.commons.io.IOUtils;
 
 public class ResourceReader {
 
-	private static final String DOULBE_BACKSLASH = "\\\\";
+	private static final String DOUBLE_BACKSLASH = "\\\\";
 	private static final String SLASH = "/";
 
 	public String readFileAsStream(
@@ -112,7 +112,7 @@ public class ResourceReader {
 
 	private String replaceAllSlash(
 		String path) {
-		return path.replaceAll(SLASH, DOULBE_BACKSLASH);
+		return path;//.replaceAll(SLASH, DOUBLE_BACKSLASH);
 	}
 
 	private String readResource(
