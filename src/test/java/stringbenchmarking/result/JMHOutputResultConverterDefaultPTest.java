@@ -73,7 +73,20 @@ public class JMHOutputResultConverterDefaultPTest {
 
 	private String readFile(
 		String path) {
-		return reader.readFile(this.getClass(), path);
+		String result = null;
+		try { result = reader.readFile(path);throw new IllegalArgumentException("worked");} catch (Exception e) {System.err.println(e.getMessage());}
+		try { result = reader.readFile(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {System.err.println(e.getMessage());}
+		try { result = reader.readFile(Thread.currentThread(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {System.err.println(e.getMessage());}
+		try { result = reader.readFileAsStream(path);throw new IllegalArgumentException("worked");} catch (Exception e) {System.err.println(e.getMessage());}
+		try { result = reader.readFileAsStream(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {System.err.println(e.getMessage());}
+		try { result = reader.readFileAsStream(Thread.currentThread(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {System.err.println(e.getMessage());}
+		try { result = reader.readResource(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {System.err.println(e.getMessage());}
+		try { result = reader.readResourceAsStream(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {System.err.println(e.getMessage());}
+		if (result == null) {
+			throw new IllegalArgumentException("not worked");
+		} else {
+			return result;
+		}
 	}
 
 	private String asString(
