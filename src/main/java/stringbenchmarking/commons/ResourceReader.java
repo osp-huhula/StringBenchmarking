@@ -9,9 +9,6 @@ import org.apache.commons.io.IOUtils;
 
 public class ResourceReader {
 
-	private static final String DOUBLE_BACKSLASH = "\\\\";
-	private static final String SLASH = "/";
-
 	public String readFileAsStream(
 		String path) {
 		return readFile(new File(path));
@@ -85,34 +82,29 @@ public class ResourceReader {
 	public String readFileAsStream(
 		ClassLoader loader,
 		String path) {
-		InputStream inputStream = loader.getResourceAsStream(replaceAllSlash(path));
+		InputStream inputStream = loader.getResourceAsStream(path);
 		return readResource(path, inputStream);
 	}
 
 	public String readFile(
 		ClassLoader loader,
 		String path) {
-		URL resource = loader.getResource(replaceAllSlash(path));
+		URL resource = loader.getResource("\\");
 		return readResource(path, resource);
 	}
 
 	public String readResourceAsStream(
 		Class<?> clazz,
 		String path) {
-		InputStream inputStream = clazz.getResourceAsStream(replaceAllSlash(path));
+		InputStream inputStream = clazz.getResourceAsStream(path);
 		return readResource(path, inputStream);
 	}
 
 	public String readResource(
 		Class<?> clazz,
 		String path) {
-		URL resource = clazz.getResource(replaceAllSlash(path));
+		URL resource = clazz.getResource(path);
 		return readResource(path, resource);
-	}
-
-	private String replaceAllSlash(
-		String path) {
-		return path;//.replaceAll(SLASH, DOUBLE_BACKSLASH);
 	}
 
 	public String readResource(

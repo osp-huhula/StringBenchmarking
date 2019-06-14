@@ -14,8 +14,8 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.mockito.Mockito;
 
-import stringbenchmarking.JUnitFileReader;
 import stringbenchmarking.commons.DateProvider;
+import stringbenchmarking.commons.ResourceReader;
 import stringbenchmarking.commons.exception.UnexpectedEOF;
 import stringbenchmarking.commons.zuz.ZuzObjects;
 import stringbenchmarking.result.beans.JMHResult;
@@ -25,7 +25,7 @@ import stringbenchmarking.result.converter.JMHOutputResultConverterDefault;
 @RunWith(Parameterized.class)
 public class JMHOutputResultConverterDefaultPTest {
 
-	private static final JUnitFileReader READER = new JUnitFileReader();
+	private static final ResourceReader READER = new ResourceReader();
 
 	@Parameters(name= "{index}: converting file[{0}]={1}")
 	public static Iterable<Object[]> data() {
@@ -66,9 +66,9 @@ public class JMHOutputResultConverterDefaultPTest {
 	public void converter()
 		throws UnexpectedEOF {
 		String content = null;
-		readFile("\\result/" + file.getName() + ".log");
-		readFile("/result/" + file.getName() + ".log");
-		readFile("result/" + file.getName() + ".log");
+		readFile(file.getName() + ".log");
+		readFile(file.getName() + ".log");
+		readFile(file.getName() + ".log");
 		String expectedContent = reader().readFile("expected/" + file.getName());
 		JMHResult result = converter.converter(content);
 		String actual = asString(result);
@@ -101,7 +101,7 @@ public class JMHOutputResultConverterDefaultPTest {
 		return result;
 	}
 
-	private JUnitFileReader reader() {
+	private ResourceReader reader() {
 		return READER;
 	}
 
