@@ -11,110 +11,110 @@ import stringbenchmarking.commons.AutoCloser;
 
 public class JUnitFileReader {
 
-	public String readFileAsStream(
+	public static  String readFileAsStream(
 		String path) {
 		return readFile(new File(path));
 	}
 
-	public String readFileAsStream(
+	public static  String readFileAsStream(
 		File file) {
 		return readFileAsStream(Thread.currentThread(), file);
 	}
 
-	public String readFileAsStream(
+	public static  String readFileAsStream(
 		Class<?> clazz,
 		String path) {
 		return readFileAsStream(clazz.getClassLoader(), new File(path));
 	}
 
-	public String readFileAsStream(
+	public static  String readFileAsStream(
 		Thread thread,
 		String path) {
 		return readFileAsStream(thread, new File(path));
 	}
 
-	public String readFileAsStream(
+	public static  String readFileAsStream(
 		Thread thread,
 		File file) {
 		ClassLoader loader = thread.getContextClassLoader();
 		return readFileAsStream(loader, file);
 	}
 
-	public String readFileAsStream(
+	public static  String readFileAsStream(
 		ClassLoader loader,
 		File file) {
 		return readFileAsStream(loader, file.getPath());
 	}
 
-	public String readFile(
+	public static  String readFile(
 		String path) {
 		return readFile(new File(path));
 	}
 
-	public String readFile(
+	public static  String readFile(
 		File file) {
 		return readFile(Thread.currentThread(), file);
 	}
 
-	public String readFile(
+	public static  String readFile(
 		Class<?> clazz,
 		String path) {
 		return readFile(clazz.getClassLoader(), new File(path));
 	}
 
-	public String readFile(
+	public static  String readFile(
 		Thread thread,
 		String path) {
 		return readFile(thread, new File(path));
 	}
 
-	public String readFile(
+	public static  String readFile(
 		Thread thread,
 		File file) {
 		ClassLoader loader = thread.getContextClassLoader();
 		return readFile(loader, file);
 	}
 
-	public String readFile(
+	public static  String readFile(
 		ClassLoader loader,
 		File file) {
 		return readFile(loader, file.getPath());
 	}
 
-	public String readFileAsStream(
+	public static  String readFileAsStream(
 		ClassLoader loader,
 		String path) {
 		InputStream inputStream = loader.getResourceAsStream(replaceAllSlash(path));
 		return readResource(path, inputStream);
 	}
 
-	public String readFile(
+	public static  String readFile(
 		ClassLoader loader,
 		String path) {
 		URL resource = loader.getResource(replaceAllSlash(path));
 		return readResource(path, resource);
 	}
 
-	public String readResourceAsStream(
+	public static  String readResourceAsStream(
 		Class<?> clazz,
 		String path) {
 		InputStream inputStream = clazz.getResourceAsStream(replaceAllSlash(path));
 		return readResource(path, inputStream);
 	}
 
-	public String readResource(
+	public static  String readResource(
 		Class<?> clazz,
 		String path) {
 		URL resource = clazz.getResource(replaceAllSlash(path));
 		return readResource(path, resource);
 	}
 
-	private String replaceAllSlash(
+	private static String replaceAllSlash(
 		String path) {
 		return path;// .replaceAll(SLASH, DOUBLE_BACKSLASH);
 	}
 
-	public String readResource(
+	public static  String readResource(
 		String path,
 		InputStream inputStream) {
 		if (inputStream == null) {
@@ -131,7 +131,7 @@ public class JUnitFileReader {
 		}
 	}
 
-	public String readResource(
+	public static  String readResource(
 		String path,
 		URL resource) {
 		if (resource == null) {
