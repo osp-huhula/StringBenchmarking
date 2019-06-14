@@ -25,6 +25,8 @@ import stringbenchmarking.result.converter.JMHOutputResultConverterDefault;
 @RunWith(Parameterized.class)
 public class JMHOutputResultConverterDefaultPTest {
 
+	private static final JUnitFileReader READER = new JUnitFileReader();
+
 	@Parameters(name= "{index}: converting file[{0}]={1}")
 	public static Iterable<Object[]> data() {
 		ArrayList<Object[]> data = new ArrayList<Object[]>();
@@ -47,7 +49,6 @@ public class JMHOutputResultConverterDefaultPTest {
 
 	private final DateProvider dateProvider = Mockito.mock(DateProvider.class);
 	private final JMHOutputResultConverterDefault converter = new JMHOutputResultConverterDefault(dateProvider);
-
 	private File file;
 
 	public JMHOutputResultConverterDefaultPTest(
@@ -101,7 +102,7 @@ public class JMHOutputResultConverterDefaultPTest {
 	}
 
 	private JUnitFileReader reader() {
-		return new JUnitFileReader();
+		return READER;
 	}
 
 	private void print(
