@@ -32,18 +32,18 @@ public class JMHOutputResultConverterDefaultPTest {
 		ArrayList<Object[]> data = new ArrayList<Object[]>();
 		//single
 		data.add(new Object[] {new File("benchmark_mode-Throughput-single")});
-		//data.add(new Object[] {new File("benchmark_mode-AverageTime-single")});
+		data.add(new Object[] {new File("benchmark_mode-AverageTime-single")});
 //		data.add(new Object[] {new File("benchmark_mode-SampleTime-single")});
 //		data.add(new Object[] {new File("benchmark_mode-SingleShotTime-single")});
 //		data.add(new Object[] {new File("benchmark_mode-All-single")});
 		//multiples
-		//data.add(new Object[] {new File("benchmark_mode-Throughput-multiple")});
-		//data.add(new Object[] {new File("benchmark_mode-AverageTime-multiple")});
+		data.add(new Object[] {new File("benchmark_mode-Throughput-multiple")});
+		data.add(new Object[] {new File("benchmark_mode-AverageTime-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-SampleTime-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-SingleShotTime-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-All-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-multiple-different")});
-		//data.add(new Object[] {new File("JMH-ouput-20190424.2335")});
+		data.add(new Object[] {new File("JMH-ouput-20190424.2335")});
 		return data;
 	}
 
@@ -65,10 +65,7 @@ public class JMHOutputResultConverterDefaultPTest {
 	@Test
 	public void converter()
 		throws UnexpectedEOF {
-		String content = null;
-		readFile(file.getName() + ".log");
-		readFile(file.getName() + ".log");
-		readFile(file.getName() + ".log");
+		String content = readFile("/result/" + file.getName() + ".log");
 		String expectedContent = reader().readFile("expected/" + file.getName());
 		JMHResult result = converter.converter(content);
 		String actual = asString(result);

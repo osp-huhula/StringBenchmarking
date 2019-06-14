@@ -82,58 +82,158 @@ public class ResourceReader {
 	public String readFileAsStream(
 		ClassLoader loader,
 		String path) {
-		InputStream inputStream = loader.getResourceAsStream(path);
-		return readResource(path, inputStream);
+		return readResource(ResourceRParameter.asInputStream(loader, path));
 	}
 
 	public String readFile(
 		ClassLoader loader,
 		String path) {
-		URL resource = loader.getResource("\\");
-		return readResource(path, resource);
+		return readResource(ResourceRParameter.asURL(loader, path));
 	}
 
 	public String readResourceAsStream(
 		Class<?> clazz,
 		String path) {
-		InputStream inputStream = clazz.getResourceAsStream(path);
-		return readResource(path, inputStream);
+		return readResource(ResourceRParameter.asInputStream(clazz, path));
 	}
 
 	public String readResource(
 		Class<?> clazz,
 		String path) {
-		URL resource = clazz.getResource(path);
-		return readResource(path, resource);
-	}
-
-	public String readResource(
-		String path,
-		InputStream inputStream) {
-		if (inputStream == null) {
-			throw new RuntimeException("Could not load file: ".concat(path));
-		}
-		try {
-			return IOUtils.toString(inputStream, "UTF-8");
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} finally {
-			if (inputStream != null) {
-				new AutoCloser().executeClose(inputStream);
-			}
-		}
+		return readResource(ResourceRParameter.asURL(clazz, path));
 	}
 
 	public String readResource(
 		String path,
 		URL resource) {
-		if (resource == null) {
-			throw new RuntimeException("Could not load file: ".concat(path));
+		return readResource(ResourceRParameter.get(resource, path));
+	}
+
+	public String readResource(
+		String path,
+		InputStream resource) {
+		return readResource(ResourceRParameter.get(resource, path));
+	}
+
+	public <T> String readResource(
+		ResourceRParameter<T> resource) {
+		if (resource.notFound()) {
+			throw new RuntimeException("Could not load file: ".concat(resource.getPath()));
 		}
 		try {
-			return IOUtils.toString(resource, "UTF-8");
+			return resource.read();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
+		} finally {
+			resource.closeResource();
+		}
+	}
+}
+
+abstract class ResourceRParameter<T> {
+
+	public static ResourceRParameter<Object> get(
+		Object resource,
+		String path) {
+		return new ResourceRParameter<Object>(resource, path) {
+
+			@Override
+			void closeResource() {
+			}
+		};
+	}
+
+	public static ResourceRParameter<URL> asURL(
+		ClassLoader loader,
+		String path) {
+		return new ResourceRParameterURL(loader.getResource(path), path);
+	}
+
+	public static ResourceRParameter<URL> asURL(
+		Class<?> clazz,
+		String path) {
+		return new ResourceRParameterURL(clazz.getResource(path), path);
+	}
+
+	public static ResourceRParameter<InputStream> asInputStream(
+		ClassLoader loader,
+		String path) {
+		return new ResourceRParameterIP(loader.getResourceAsStream(path), path);
+	}
+
+	public static ResourceRParameter<InputStream> asInputStream(
+		Class<?> clazz,
+		String path) {
+		return new ResourceRParameterIP(clazz.getResourceAsStream(path), path);
+	}
+
+	private static final String ENCODE = "UTF-8";
+	private T resource;
+	private String path;
+
+	private ResourceRParameter(
+		T resource,
+		String path) {
+		super();
+		this.path = path;
+		this.resource = resource;
+	}
+
+	protected T getResource() {
+		return resource;
+	}
+
+	public String read()
+		throws IOException {
+		if (resource instanceof InputStream) {
+			return IOUtils.toString((InputStream) resource, ENCODE);
+		}
+		if (resource instanceof URL) {
+			return IOUtils.toString((URL) resource, ENCODE);
+		}
+		throw new IllegalArgumentException(resource.getClass().getName());
+	}
+
+	public boolean notFound() {
+		return resource == null;
+	}
+
+	abstract void closeResource();
+
+	public String getPath() {
+		return path;
+	}
+
+	private static class ResourceRParameterURL
+		extends
+		ResourceRParameter<URL> {
+
+		private ResourceRParameterURL(
+			URL resource,
+			String path) {
+			super(resource, path);
+		}
+
+		@Override
+		void closeResource() {
+		}
+	}
+
+	private static class ResourceRParameterIP
+		extends
+		ResourceRParameter<InputStream> {
+
+		private ResourceRParameterIP(
+			InputStream resource,
+			String path) {
+			super(resource, path);
+		}
+
+		@Override
+		void closeResource() {
+			if (notFound()) {
+				new AutoCloser().executeClose(getResource());
+			}
 		}
 	}
 }
