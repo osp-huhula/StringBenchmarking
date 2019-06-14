@@ -68,7 +68,7 @@ public class JMHOutputResultConverterDefaultPTest {
 		readFile("\\result/" + file.getName() + ".log");
 		readFile("/result/" + file.getName() + ".log");
 		readFile("result/" + file.getName() + ".log");
-		String expectedContent = reader.readFile("expected/" + file.getName());
+		String expectedContent = reader().readFile("expected/" + file.getName());
 		JMHResult result = converter.converter(content);
 		String actual = asString(result);
 		Assert.assertEquals(expectedContent, actual);
