@@ -14,8 +14,8 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.mockito.Mockito;
 
+import stringbenchmarking.JUnitFileReader;
 import stringbenchmarking.commons.DateProvider;
-import stringbenchmarking.commons.ResourceReader;
 import stringbenchmarking.commons.exception.UnexpectedEOF;
 import stringbenchmarking.commons.zuz.ZuzObjects;
 import stringbenchmarking.result.beans.JMHResult;
@@ -100,8 +100,8 @@ public class JMHOutputResultConverterDefaultPTest {
 		return result;
 	}
 
-	private ResourceReader reader() {
-		return new ResourceReader();
+	private JUnitFileReader reader() {
+		return new JUnitFileReader();
 	}
 
 	private void print(
