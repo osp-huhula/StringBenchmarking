@@ -2,12 +2,11 @@ package stringbenchmarking.result;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -21,7 +20,7 @@ import stringbenchmarking.commons.zuz.ZuzObjects;
 import stringbenchmarking.result.beans.JMHResult;
 import stringbenchmarking.result.converter.JMHOutputResultConverterDefault;
 
-
+@Ignore
 @RunWith(Parameterized.class)
 public class JMHOutputResultConverterDefaultPTest {
 
@@ -75,46 +74,11 @@ public class JMHOutputResultConverterDefaultPTest {
 
 	private String readFile(
 		String path) {
-		String result = null;
-		try { result = reader().readFile(path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader().readFile(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader().readFile(Thread.currentThread(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader().readFileAsStream(path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader().readFileAsStream(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader().readFileAsStream(Thread.currentThread(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-
-
-		try { result = reader().readFileAsStream(ClassLoader.getSystemClassLoader(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader().readFile(ClassLoader.getSystemClassLoader(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader().readResource(path, ClassLoader.getSystemResource(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader().readResource(path, ClassLoader.getSystemResourceAsStream(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader().readResource(path, JMHOutputResultConverterDefaultPTest.class.getClassLoader().getResource(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader().readResource(path, JMHOutputResultConverterDefaultPTest.class.getClassLoader().getResourceAsStream(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-
-		try { result = reader().readResource(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader().readResourceAsStream(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader().readResource(path, JMHOutputResultConverterDefaultPTest.class.getResource(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader().readResource(path, JMHOutputResultConverterDefaultPTest.class.getResourceAsStream(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		return result;
+		return reader().readFile(path);
 	}
 
 	private ResourceReader reader() {
 		return READER;
-	}
-
-	private void print(
-		Exception e) {
-		if(!"worked".equals(e.getMessage())) {
-			List<StackTraceElement> asList = Arrays.asList(e.getStackTrace());
-			for (StackTraceElement stackTraceElement : asList) {
-				if(stackTraceElement.getMethodName().equals("converter")) {
-					System.err.println(e.getStackTrace()[asList.indexOf(stackTraceElement)-1] + e.getMessage());
-					return;
-				}
-			}
-		} else {
-			System.err.println(e.getStackTrace()[0] + e.getMessage());
-		}
 	}
 
 	private String asString(
