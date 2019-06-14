@@ -94,10 +94,10 @@ public class JMHOutputResultConverterDefaultPTest {
 		try { result = reader().readResource(path, JMHOutputResultConverterDefaultPTest.class.getClassLoader().getResource(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
 		try { result = reader().readResource(path, JMHOutputResultConverterDefaultPTest.class.getClassLoader().getResourceAsStream(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
 
-//		try { result = reader().readResource(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-//		try { result = reader().readResourceAsStream(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-//		try { result = reader().readResource(path, JMHOutputResultConverterDefaultPTest.class.getResource(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-//		try { result = reader().readResource(path, JMHOutputResultConverterDefaultPTest.class.getResourceAsStream(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readResource(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readResourceAsStream(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readResource(path, JMHOutputResultConverterDefaultPTest.class.getResource(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readResource(path, JMHOutputResultConverterDefaultPTest.class.getResourceAsStream(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
 		return result;
 	}
 
