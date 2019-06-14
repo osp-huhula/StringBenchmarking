@@ -2,6 +2,8 @@ package stringbenchmarking.result;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Assert;
@@ -28,22 +30,21 @@ public class JMHOutputResultConverterDefaultPTest {
 		ArrayList<Object[]> data = new ArrayList<Object[]>();
 		//single
 		data.add(new Object[] {new File("benchmark_mode-Throughput-single")});
-		data.add(new Object[] {new File("benchmark_mode-AverageTime-single")});
+		//data.add(new Object[] {new File("benchmark_mode-AverageTime-single")});
 //		data.add(new Object[] {new File("benchmark_mode-SampleTime-single")});
 //		data.add(new Object[] {new File("benchmark_mode-SingleShotTime-single")});
 //		data.add(new Object[] {new File("benchmark_mode-All-single")});
 		//multiples
-		data.add(new Object[] {new File("benchmark_mode-Throughput-multiple")});
-		data.add(new Object[] {new File("benchmark_mode-AverageTime-multiple")});
+		//data.add(new Object[] {new File("benchmark_mode-Throughput-multiple")});
+		//data.add(new Object[] {new File("benchmark_mode-AverageTime-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-SampleTime-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-SingleShotTime-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-All-multiple")});
 //		data.add(new Object[] {new File("benchmark_mode-multiple-different")});
-		data.add(new Object[] {new File("JMH-ouput-20190424.2335")});
+		//data.add(new Object[] {new File("JMH-ouput-20190424.2335")});
 		return data;
 	}
 
-	private final ResourceReader reader = new ResourceReader();
 	private final DateProvider dateProvider = Mockito.mock(DateProvider.class);
 	private final JMHOutputResultConverterDefault converter = new JMHOutputResultConverterDefault(dateProvider);
 
@@ -77,24 +78,43 @@ public class JMHOutputResultConverterDefaultPTest {
 	private String readFile(
 		String path) {
 		String result = null;
-		try { result = reader.readFile(path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader.readFile(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader.readFile(Thread.currentThread(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader.readFile(ClassLoader.getSystemClassLoader(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader.readFileAsStream(path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader.readFileAsStream(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader.readFileAsStream(Thread.currentThread(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader.readFileAsStream(ClassLoader.getSystemClassLoader(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader.readResource(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader.readResourceAsStream(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader.readResource(path, ClassLoader.getSystemResource(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
-		try { result = reader.readResource(path, ClassLoader.getSystemResourceAsStream(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readFile(path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readFile(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readFile(Thread.currentThread(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readFileAsStream(path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readFileAsStream(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readFileAsStream(Thread.currentThread(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+
+
+		try { result = reader().readFileAsStream(ClassLoader.getSystemClassLoader(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readFile(ClassLoader.getSystemClassLoader(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readResource(path, ClassLoader.getSystemResource(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readResource(path, ClassLoader.getSystemResourceAsStream(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readResource(path, JMHOutputResultConverterDefaultPTest.class.getClassLoader().getResource(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+		try { result = reader().readResource(path, JMHOutputResultConverterDefaultPTest.class.getClassLoader().getResourceAsStream(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+
+//		try { result = reader().readResource(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+//		try { result = reader().readResourceAsStream(getClass(), path);throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+//		try { result = reader().readResource(path, JMHOutputResultConverterDefaultPTest.class.getResource(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
+//		try { result = reader().readResource(path, JMHOutputResultConverterDefaultPTest.class.getResourceAsStream(path));throw new IllegalArgumentException("worked");} catch (Exception e) {print(e);}
 		return result;
+	}
+
+	private ResourceReader reader() {
+		return new ResourceReader();
 	}
 
 	private void print(
 		Exception e) {
 		if(!"worked".equals(e.getMessage())) {
+			List<StackTraceElement> asList = Arrays.asList(e.getStackTrace());
+			for (StackTraceElement stackTraceElement : asList) {
+				if(stackTraceElement.getMethodName().equals("converter")) {
+					System.err.println(e.getStackTrace()[asList.indexOf(stackTraceElement)-1] + e.getMessage());
+					return;
+				}
+			}
+		} else {
 			System.err.println(e.getStackTrace()[0] + e.getMessage());
 		}
 	}
